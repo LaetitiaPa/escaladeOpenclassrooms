@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <title>Emprunter un Topo</title>
+</head>
+<body>
+<!-- nav bar -->
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+
+            <h2>Emprunt d'un Topo</h2>
+            <br>
+            <p style="color:orange">N'empruntez que les topos dont la difficulté correspond à votre niveau de grimpeur</p>
+            <br>
+
+
+		<div class="container">
+		   <div class="row justify-content-center">
+		      <div class="col-md-8">
+		        <div class="card">
+		          <form name="my-form" action="#" th:action="@{/reservation/{id}(id=${topo.id})}" th:object="${topo}" enctype="multipart/form-data" method="post">
+		            <div class="card-header">Vous allez réserver le Topo n° <span th:text="${topo.getId()}"></span> intitulé : <span style="color:red; font-weight: bold" th:text="${topo.getTitle()}"></span></div>    
+		              <div class="row">
+		              	<div class="col-md-6 offset-md-4">
+		                  <button type="submit" class="btn btn-secondary">
+		                    Confirmer la réservation
+		                  </button>
+		               </div>
+		             </div>
+		          </form>
+		        </div>
+		      </div>
+		   </div>
+		 </div>
+	  </div>
+    </div>
+</div>
+</body>
+</html>
+
+

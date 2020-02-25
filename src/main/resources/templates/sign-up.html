@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>Créer un compte - Les Amis de l'Escalade</title>
+<link href="css/sign-up.css" rel="stylesheet">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-xl-9 mx-auto">
+        <div class="card card-signin flex-row my-5">
+          <div class="card-img-left d-none d-md-flex">
+             <!-- Background image for card set in CSS! -->
+          </div>
+          <div class="card-body">
+            <h5 class="card-title text-center">Créer un compte</h5>
+            <form name='sign-upForm' th:Object="${user}" th:action="@{/inscription}" class="form-signin"enctype="utf8" method="post">
+
+              <label th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"class="validation-message"></label>
+              <div class="form-label-group">
+                <input type="text" th:field="*{userName}" class="form-control" required autofocus>
+                <label for="inputUserame">IDENTIFIANT/PSEUDO</label>
+              </div>
+              
+              <label th:if="${#fields.hasErrors('name')}" th:errors="*{name}"class="validation-message"></label>
+              <div class="form-label-group">
+                <input type="text" th:field="*{name}"  class="form-control"required autofocus>
+                <label for="inputFirstname">PRENOM</label>
+              </div>
+              
+              <label th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"class="validation-message"></label>
+              <div class="form-label-group">
+               <input type="text" th:field="*{lastName}" class="form-control" required autofocus>
+                <label for="inputLastname">NOM</label>
+              </div>
+              
+ 			  <label th:if="${#fields.hasErrors('email')}" th:errors="*{email}"class="validation-message"></label>
+              <div class="form-label-group">
+                <input type="email" th:field="*{email}" class="form-control" required>
+                <label for="inputEmail">EMAIL</label>
+              </div>
+              
+              <hr>
+              
+			  <label th:if="${#fields.hasErrors('password')}" th:errors="*{password}"class="validation-message"></label>
+              <div class="form-label-group">
+                <input type="password" th:field="*{password}" class="form-control"required>
+                <label for="inputPassword">MOT DE PASSE</label>
+              </div>
+                
+           
+
+              <div class="custom-control custom-checkbox mb-3">
+                <input type="checkbox" class="custom-control-input" id="customCheck1">
+                <label class="custom-control-label" for="customCheck1">Membre de l'association des Amis de l'Escalade</label>
+              </div>
+
+              <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">S'ENREGISTRER</button>
+              <a class="d-block text-center mt-2 small" th:href="@{/connexion}">Se connecter</a>
+              <hr class="my-4">
+             
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

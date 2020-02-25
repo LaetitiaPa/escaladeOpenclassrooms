@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+	<title>Espace Membre</title>
+</head>
+
+<body>	
+	<div class="row bootstrap snippets">
+    <div class="col-md-6 col-md-offset-2 col-sm-12">
+        <div class="comment-wrapper">
+            <div class="panel panel-info">
+            <a th:href="@{/spots}" class="btn btn-primary btn-sm mb-3">
+				Retourner à la liste des spots
+	  		</a>
+                <div class="panel-heading">
+                    Commentaire
+                </div>
+                <div class="panel-body">
+                <form name='comment'  th:action="@{/ajouter-commentaire/enregistré}" class="form-comments"enctype="utf8" method="post">
+                    <textarea class="form-control" th:required="required" th:field="*{comment.comments}" placeholder="ajouter un commentaire..." rows="3"></textarea>
+                    <br>
+                    <button class="btn btn-info pull-right">Enregistrer</button>
+                    <div class="clearfix"></div>
+                    <hr>
+                    </form>
+                </div>
+               	 <span style="color:green" th:utext="${successMessage}"></span>
+               	 
+                </div>  
+  			 </div>
+  		  </div>
+       </div>
+</body>
+</html>

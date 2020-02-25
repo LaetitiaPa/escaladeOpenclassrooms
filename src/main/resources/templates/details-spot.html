@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+	<title>Espace Membre</title>
+</head>
+
+<body>
+<div class="container">
+
+	<h3 th:text= "${spotName}" ></h3>
+	<hr>
+		<div th:if="${#request.userPrincipal}">	
+			<a th:href="@{/ajouter-commentaire-spot(name=${spotName})}"class="btn btn-primary btn-sm mb-3">
+				Ajouter un commentaire
+			</a>
+		</div>
+		
+		<a th:href="@{/}"class="btn btn-primary btn-sm mb-3">
+			Revenir à l'accueil
+	   </a>
+
+	
+	   <a th:href="@{/spots}" class="btn btn-primary btn-sm mb-3">
+			Retourner à la liste des spots
+	  </a>
+	<table class="table table-bordered table-striped">
+		<thead class="thead-dark">
+			<tr>
+				<th>Site</th>
+				<th>Region</th>
+				<th>Departement</th>
+				<th>Nombre de voies</th>
+				<th>Cotation</th>
+			</tr>
+		</thead>
+		
+		<tbody>
+			<tr th:each= "spot: ${singleSpot}">
+				<td th:text= "${spot.name}">
+				<td th:text= "${spot.region}">
+				<td th:text= "${spot.departement}">
+				<td th:text= "${spot.track_number}">
+				<td th:text= "${spot.cotation}">
+				</td>
+		</tbody>		
+	</table>
+	<div  th:if="${not #lists.isEmpty(comments)}">
+	 	 <table  class="table table-bordered table-striped">
+			       <thead class="thead-white">
+					<tr>
+					<th>Date</th>
+					<th>Commentaire</th>
+					<th>Auteur</th>
+					</tr>
+			     	</thead>
+					<tbody>
+						<tr th:each= "comment: ${comments}">
+						<td th:text= "${comment.date} ">
+						<td th:text= "${comment.comments}">
+						<td th:text= "${comment.user?.name}">
+
+	
+						<div th:if="${#httpServletRequest.isUserInRole('ADMIN')}">
+						 <form th:action="@{/commentaire/{id}(id=${comment.id})}" th:object="${comment}" method="post">
+	                      <button type="submit" class = "btn btn-primary btn-sm" >Modifier</button>
+	                    </form>
+						
+						 <form th:action="@{/supprimer-commentaire/{id}(id=${comment.id})}" th:object="${comment}" method="post">
+	                      <button type="submit" class = "btn btn-danger btn-sm" >Supprimer</button>
+	                    </form>
+						<span th:text="${successMessage}"></span>
+					  </div>
+			 	 </tbody>		
+			</table>
+	</div>
+	<div th:if="${ #lists.isEmpty(comments)}">
+  		Ce spot n'a pas encore de commentaire, soyez le premier à en laisser un !
+	</div>
+
+ </div>
+</body>
+</html>
+
+
+

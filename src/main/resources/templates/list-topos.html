@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+	<title>Espace Membre</title>
+</head>
+
+<body>
+
+<div class="container">
+
+	<h3 th:text= "${currentUser}">test</h3>
+	<h3>Mon espace</h3>
+	<hr>
+
+	<a th:href="@{/}"
+		class="btn btn-primary btn-sm mb-3">
+		Revenir à l'accueil
+	</a>
+	
+	<a th:href="@{/ajouter-un-topo}"
+		class="btn btn-primary btn-sm mb-3">
+		Ajouter un topo
+	</a>
+	
+	<table class="table table-bordered table-striped">
+		<thead class="thead-dark">
+			<tr>
+				<th>Titre</th>
+				<th>Région</th>
+				<th>Description</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		
+		<tbody>
+			<tr th:each="topo : ${AllTopos}">
+      	<!-- 	th:if="${topo.user.id} != ${currentUser.id} and ${topo.availability} == true "> -->
+				<td th:text="${topo.title}" />	
+				<td th:text="${topo.region}" />	
+				<td th:text="${topo.description}" />
+				<td>
+					<a th:href="@{/topo/{id}(id=${topo.id})}"
+					   class="btn btn-info btn-sm">
+						Réserver
+					</a>
+				</td>
+			</tr>
+		</tbody>		
+	</table>
+	
+</div>
+	
+</body>
+</html>
+
+
+

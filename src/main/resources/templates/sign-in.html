@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>Se connecter - Les Amis de l'Escalade</title>
+ <link href="css/login.css" rel="stylesheet">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+        <div class="card card-signin my-5">
+          <div class="card-body">
+            <span th:utext="${successMessage}"></span>
+            <h5 class="card-title text-center">SE CONNECTER</h5>
+            <form th:action="@{/connexion}" method="POST" class="form-signin">
+            
+              <div class="form-label-group">
+                <input type="text" id="inputUsername" class="form-control">
+                <label for="inputUsername">EMAIL</label>
+              </div>
+
+              <div class="form-label-group">
+                <input type="password" id="inputPassword" class="form-control" >
+                <label for="inputPassword">MOT DE PASSE</label>
+              </div>
+
+              <div class="custom-control custom-checkbox mb-3">
+                <input type="checkbox" class="custom-control-input" id="customCheck1">
+                <label class="custom-control-label" for="customCheck1">Se souvenir de moi</label>
+              </div>
+              
+              <div align="center" th:if="${param.error}">
+				<p style="font-size: 20; color: #FF1C19;">Email or Password invalid, please verify</p>
+			</div>
+			
+              <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Se connecter</button>
+              <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+              
+              <hr class="my-4">
+              <div class="footer-message">
+            	<ul>
+              	<li><a th:href="@{/inscription}">Créer un compte</a></li>
+                <li><a th:href="@{/}">Mot de passe perdu</a></li>
+              </ul>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
