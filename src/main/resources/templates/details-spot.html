@@ -26,11 +26,12 @@
 		<a th:href="@{/}"class="btn btn-primary btn-sm mb-3">
 			Revenir à l'accueil
 	   </a>
+	   
+       <a th:href="@{/spots}" class="btn btn-primary btn-sm mb-3">
+		Retourner à la liste des spots
+       </a>
 
-	
-	   <a th:href="@{/spots}" class="btn btn-primary btn-sm mb-3">
-			Retourner à la liste des spots
-	  </a>
+  
 	<table class="table table-bordered table-striped">
 		<thead class="thead-dark">
 			<tr>
@@ -59,6 +60,9 @@
 					<th>Date</th>
 					<th>Commentaire</th>
 					<th>Auteur</th>
+					<div th:if="${#httpServletRequest.isUserInRole('USER')}">
+						<th>Action</th>
+					 </div>
 					</tr>
 			     	</thead>
 					<tbody>
@@ -66,25 +70,34 @@
 						<td th:text= "${comment.date} ">
 						<td th:text= "${comment.comments}">
 						<td th:text= "${comment.user?.name}">
-
-	
-						<div th:if="${#httpServletRequest.isUserInRole('ADMIN')}">
-						 <form th:action="@{/commentaire/{id}(id=${comment.id})}" th:object="${comment}" method="post">
-	                      <button type="submit" class = "btn btn-primary btn-sm" >Modifier</button>
-	                    </form>
 						
+						<td>
+					
+							 <form th:action="@{/commentaire/{id}(id=${comment.id})}" th:object="${comment}" method="post">
+		                      <button type="submit" class = "btn btn-primary btn-sm" >Modifier</button>
+		                     </form>
+	                    
+		 
+							<div sec:authorize="hasRole('ADMIN')">
 						 <form th:action="@{/supprimer-commentaire/{id}(id=${comment.id})}" th:object="${comment}" method="post">
 	                      <button type="submit" class = "btn btn-danger btn-sm" >Supprimer</button>
-	                    </form>
-						<span th:text="${successMessage}"></span>
-					  </div>
+	                     </form>
+	                      </div>
+		                </td>
+		                
+		           
+	    
+					
+					 
 			 	 </tbody>		
 			</table>
 	</div>
+		<span th:text="${successMessage}"></span>
 	<div th:if="${ #lists.isEmpty(comments)}">
   		Ce spot n'a pas encore de commentaire, soyez le premier à en laisser un !
 	</div>
 
+ </div>
  </div>
 </body>
 </html>

@@ -9,15 +9,13 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
-	<title>Espace Membre</title>
+	<title>Les Amis de l'Escalade - Topos</title>
 </head>
 
 <body>
 
 <div class="container">
-
-	<h3 th:text= "${currentUser}">test</h3>
-	<h3>Mon espace</h3>
+	<h3>Topos disponibles</h3>
 	<hr>
 
 	<a th:href="@{/}"
@@ -41,8 +39,8 @@
 		</thead>
 		
 		<tbody>
-			<tr th:each="topo : ${AllTopos}">
-      	<!-- 	th:if="${topo.user.id} != ${currentUser.id} and ${topo.availability} == true "> -->
+			<tr th:each="topo : ${AllTopos}"
+      		 th:if="${topo.user.id} != ${currentUser.id} and ${topo.availability} == true">
 				<td th:text="${topo.title}" />	
 				<td th:text="${topo.region}" />	
 				<td th:text="${topo.description}" />
@@ -55,9 +53,7 @@
 			</tr>
 		</tbody>		
 	</table>
-	
-</div>
-	
+ </div>
 </body>
 </html>
 

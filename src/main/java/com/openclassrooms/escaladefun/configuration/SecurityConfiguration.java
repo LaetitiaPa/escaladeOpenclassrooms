@@ -33,11 +33,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure( HttpSecurity http ) throws Exception {
-
         http
 
                 .authorizeRequests()
-
                 .antMatchers( "/**/*.js", "/**/*.css", "/img/**", "/**/*.scss" ).permitAll()
                 .antMatchers( "/" ).permitAll()
                 .antMatchers( "/rechercher-spot" ).permitAll()
@@ -45,6 +43,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers( "/registration" ).permitAll()
                 .antMatchers( "/spots" ).permitAll()
                 .antMatchers( "/spot" ).permitAll()
+                .antMatchers( "/reservation" ).permitAll()
+                .antMatchers( "/topos" ).permitAll()
+                .antMatchers( "/topo" ).permitAll()
                 .antMatchers( "/afficher-un-spot" ).permitAll()
                 .antMatchers( "/registration" ).permitAll()
                 .antMatchers( "/admin/**", "/h2web/**" ).hasAuthority( "ADMIN" )

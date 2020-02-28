@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         Role role = new Role();
         role.setRole( "USER" );
         roles.add( role );
-        user.setRoles( roles );
+
         userRepository.save( user );
     }
 

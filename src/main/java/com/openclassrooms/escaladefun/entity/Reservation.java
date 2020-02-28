@@ -1,5 +1,7 @@
 package com.openclassrooms.escaladefun.entity;
 
+import java.util.Date;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,6 +18,9 @@ public class Reservation {
     @GeneratedValue( strategy = GenerationType.AUTO )
     @Column( name = "reservation_id" )
     private Long id;
+
+    @Column( name = "date_reservation" )
+    private Date date = new Date();
 
     @OneToOne( cascade = { CascadeType.PERSIST, CascadeType.MERGE } )
     @JoinColumn( name = "user_id" )
@@ -52,6 +57,14 @@ public class Reservation {
 
     public void setTopo( Topo topo ) {
         this.topo = topo;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate( Date date ) {
+        this.date = date;
     }
 
 }

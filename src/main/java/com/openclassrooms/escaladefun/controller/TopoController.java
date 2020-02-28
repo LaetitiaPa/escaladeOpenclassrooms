@@ -6,11 +6,12 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,7 @@ import com.openclassrooms.escaladefun.entity.User;
 import com.openclassrooms.escaladefun.repository.TopoRepository;
 import com.openclassrooms.escaladefun.service.ReservationServiceImpl;
 import com.openclassrooms.escaladefun.service.TopoServiceImpl;
+import com.openclassrooms.escaladefun.service.UserServiceImpl;
 
 @Controller
 public class TopoController implements WebMvcConfigurer {
@@ -34,10 +36,53 @@ public class TopoController implements WebMvcConfigurer {
     TopoServiceImpl             topoServiceImpl;
 
     @Autowired
+    UserServiceImpl             userServiceImpl;
+
+    @Autowired
     TopoRepository              topoRepository;
 
     @Autowired
     ReservationServiceImpl      resaImpl;
+
+    @RequestMapping( value = "/dashboard", method = RequestMethod.GET )
+    public ModelAndView dashboard( Model model, HttpSession httpSession ) {
+        ModelAndView modelAndView = new ModelAndView();
+        model.addAttribute( "AllTopos", topoServiceImpl.getAllTopos() );
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userServiceImpl.findUserByEmail( auth.getName() );
+        httpSession.setAttribute( "loggedUser", user );
+
+        model.addAttribute( "currentUser", user );
+
+        modelAndView.setViewName( "user-dashboard" );
+
+        return modelAndView;
+    }
+    /*
+     * @PostMapping( value = "/topo/modifier" ) public ModelAndView
+     * update( @ModelAttribute( "comment" ) @Valid Comment comment,
+     * BindingResult result ) { ModelAndView modelAndView = new ModelAndView();
+     * if ( result.hasErrors() ) {
+     * 
+     * modelAndView.setViewName( "comment-form" ); return modelAndView; } else {
+     * commentServiceImpl.editComment( comment );
+     * 
+     * modelAndView.addObject( "successMessage",
+     * "Votre commentaire a bien été modifié" ); modelAndView.setViewName(
+     * "list-spots" );
+     * 
+     * log.info( "Le commentaire est modifié" );
+     * 
+     * return modelAndView; } }
+     * 
+     * @PostMapping( value = "/supprimer/{id}" ) public String
+     * delete( @PathVariable Long id, Model model ) {
+     * commentServiceImpl.deleteComment( id );
+     * 
+     * log.info( "Le commentaire est supprimé" );
+     * 
+     * return "list-spots"; }
+     */
 
     @RequestMapping( value = "/ajouter-un-topo", method = RequestMethod.GET )
     public ModelAndView createNewTopo() {
@@ -54,8 +99,8 @@ public class TopoController implements WebMvcConfigurer {
             HttpSession httpSession ) {
         Topo topo = convertTopoFormToTopo( topoForm );
         ModelAndView modelAndView = new ModelAndView();
-        User user = (User) httpSession.getAttribute( "loggedUser" );
         Topo topoExists = topoRepository.findByTitle( topo.getTitle() );
+
         if ( topoExists != null ) {
             bindingResult.rejectValue( "title", "error.topo",
                     "Ce topo a déjà été enregistré" );
@@ -63,6 +108,9 @@ public class TopoController implements WebMvcConfigurer {
         if ( bindingResult.hasErrors() ) {
             modelAndView.setViewName( "topo-form" );
         } else {
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            User user = userServiceImpl.findUserByEmail( auth.getName() );
+            httpSession.setAttribute( "loggedUser", user );
             topo.setUser( user );
             topoServiceImpl.saveTopo( topo );
             modelAndView.addObject(
@@ -91,19 +139,21 @@ public class TopoController implements WebMvcConfigurer {
     @GetMapping( value = "/topos" )
     public String displayListTopos( Model model, HttpSession httpSession ) {
         model.addAttribute( "AllTopos", topoServiceImpl.getAllTopos() );
-        User users = (User) httpSession.getAttribute( "loggedUser" );
-        // null value !
-        model.addAttribute( "currentUser", users );
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userServiceImpl.findUserByEmail( auth.getName() );
+        httpSession.setAttribute( "loggedUser", user );
 
+        model.addAttribute( "currentUser", user );
         return "list-topos";
     }
 
     @GetMapping( value = "/topo/{id}" )
-    public ModelAndView pageConfirmation( @PathVariable( "id" ) Long topoId, Model model ) {
+    public ModelAndView pageConfirmation( @PathVariable( "id" ) Long topoId, Model model, HttpSession httpSession ) {
         ModelAndView modelAndView = new ModelAndView();
-        Topo topoCible = topoRepository.findTopoById( topoId );
 
-        model.addAttribute( "topo", topoCible );
+        Topo topo = topoRepository.findTopoById( topoId );
+        httpSession.setAttribute( "topo", topo );
+        model.addAttribute( "topo", topo );
 
         modelAndView.setViewName( "resa-topo" );
 
@@ -111,25 +161,24 @@ public class TopoController implements WebMvcConfigurer {
     }
 
     @PostMapping( "/reservation/{id}" )
-    public ModelAndView Reservation( @ModelAttribute Reservation reservation, @PathVariable( "id" ) Long topoId,
-            HttpSession httpSession ) {
+    public String Reservation( @PathVariable( "id" ) Long topoId,
+            HttpSession httpSession, Model model ) {
         Reservation resaTopo = new Reservation();
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName( "list-topos" );
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userServiceImpl.findUserByEmail( auth.getName() );
+        httpSession.setAttribute( "loggedUser", user );
         Topo topo = topoRepository.findTopoById( topoId );
+        resaTopo.setUser( user );
         resaTopo.setTopo( topo );
-        User currentUser = (User) httpSession.getAttribute( "loggedUser" );
-        resaTopo.setUser( currentUser );
-        resaImpl.saveResa( reservation );
-        /*
-         * topo.setAvailability( false ); topoRepository.save( topo );
-         */
+        topo.setAvailability( false );
+        resaImpl.saveResa( resaTopo );
 
         modelAndView.addObject( "successMessage", "Un nouvel emprunt a été créé pour le topo " + topo.getTitle() );
 
         log.info( "Une nouvelle demande de réservation vient d'être faite pour le topo : " + topo.getTitle() );
 
-        return modelAndView;
+        return "redirect:/topos";
     }
 
 }

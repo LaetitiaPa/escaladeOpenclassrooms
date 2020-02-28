@@ -42,22 +42,6 @@ public class LoginController {
         return modelAndView;
     }
 
-    @RequestMapping( value = "/loginAdmin", method = RequestMethod.GET )
-    public ModelAndView adminLogin( Model model ) {
-        ModelAndView modelAndView = new ModelAndView();
-
-        modelAndView.setViewName( "login-admin" );
-        return modelAndView;
-    }
-
-    @RequestMapping( value = "/adminPage", method = RequestMethod.GET )
-    public ModelAndView adminPage( Model model ) {
-        ModelAndView modelAndView = new ModelAndView();
-
-        modelAndView.setViewName( "admin-dashboard" );
-        return modelAndView;
-    }
-
     @RequestMapping( value = "/", method = RequestMethod.GET )
     public ModelAndView accueil() {
         ModelAndView modelAndView = new ModelAndView();
@@ -95,10 +79,11 @@ public class LoginController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userServiceImpl.findUserByEmail( auth.getName() );
         httpSession.setAttribute( "loggedUser", user );
+
         modelAndView.addObject( "userName", user.getName() );
-        // modelAndView.addObject("adminMessage","Content Available Only for
-        // Users with Admin Role");
+
         modelAndView.setViewName( "index" );
+
         return modelAndView;
     }
 

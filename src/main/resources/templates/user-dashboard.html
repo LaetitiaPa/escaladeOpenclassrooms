@@ -1,0 +1,115 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+
+
+	<title>Espace Membre</title>
+</head>
+
+<body>
+
+<div class="container">
+	<h3>Mon espace</h3>
+	<hr>
+
+	<a th:href="@{/}"
+		class="btn btn-primary btn-sm mb-3">
+		Revenir à l'accueil
+	</a>
+	
+	<a th:href="@{/ajouter-un-topo}"
+		class="btn btn-primary btn-sm mb-3">
+		Ajouter un topo
+	</a>
+	
+	<div class="row justify-content-between">
+    <div class="col-6">
+    <h4>Mes topos</h4>
+	<table class="table table-bordered table-striped">
+		<thead class="thead-dark">
+			<tr>
+				<th>Titre</th>
+				<th>Région</th>
+				<th>Description</th>
+				<th>Action</th>
+				<th>Statut</th>
+			</tr>
+		</thead>
+		
+		<tbody>
+			<tr th:each="topo : ${AllTopos}"
+      		 th:if="${topo.user.id} == ${currentUser.id}">
+				<td th:text="${topo.title}" />	
+				<td th:text="${topo.region}" />	
+				<td th:text="${topo.description}" />
+				<td>
+					<a th:href="@{/}"
+					   class="btn btn-info btn-sm">
+						Modifier
+					</a>
+
+					<a th:href="@{/}"
+					   class="btn btn-danger btn-sm">
+						Supprimer
+					</a>
+				</td>
+				<td>
+						<div class="custom-control custom-checkbox">
+				  <input type="checkbox" class="custom-control-input" id="defaultChecked1">
+				  <label class="custom-control-label" for="defaultChecked1">Disponible</label>
+				</div>
+				</td>
+				
+			</tr>
+		</tbody>		
+	</table>
+    </div>
+    <div class="col-6">
+      		<h4>Demande de réservation</h4>
+			<table class="table table-bordered table-striped">
+				<thead class="thead-dark">
+					<tr>
+						<th>Topo</th>
+						<th>Demandeur</th>
+						<th>Date</th>
+						<th>Action</th>
+						
+					</tr>
+		</thead>
+		
+		<tbody>
+			<tr th:each="topo : ${AllTopos}"
+      		 th:if="${topo.user.id} == ${currentUser.id}">
+				<td th:text="${topo.title}" />	
+				<td th:text="${topo.region}" />	
+				<td th:text="${topo.description}" />
+				<td>
+		
+				<div class="custom-control custom-checkbox">
+				  <input type="checkbox" class="custom-control-input" id="defaultChecked2">
+				  <label class="custom-control-label" for="defaultChecked2">Accepter le prêt</label>
+				</div>
+			</tr>
+		</tbody>		
+	</table>
+	
+    </div>
+  </div>
+</div>
+	
+
+	
+</body>
+</html>
+
+
+

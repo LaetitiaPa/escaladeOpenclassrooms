@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <head>
 
@@ -10,6 +10,7 @@
   
 
   <title>Les Amis de l'Escalade</title>
+  
 
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -25,7 +26,6 @@
 </head>
 
 <body>
-
   <!-- Navigation -->
   <nav class="navbar navbar-light bg-light static-top">
     <div class="container">
@@ -38,10 +38,13 @@
           </li>
           </ul>
            <ul class="navbar-nav ml-left">
+           
           <li class="nav-item active">
+
             <a class="nav-link" th:href="@{/topos}">Topos
             </a>
           </li>
+        
           </ul>
           <ul class="navbar-nav ml-left">
           <li class="nav-item active">
@@ -54,7 +57,7 @@
 		  <button type="button" th:text="${userName}" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 		  </button>
 		  <div class="dropdown-menu">
-		    <a class="dropdown-item" th:href="@{/login}">Mon espace</a>
+		    <a class="dropdown-item" th:href="@{/dashboard}">Mon espace</a>
 		    <a class="dropdown-item" th:href="@{/logout}"> Se déconnecter</a>
 		    <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
       			<input hidden type="submit" value="Se déconnecter"/>
@@ -79,9 +82,11 @@
     <div class="overlay"></div>
     <div class="container">
       <div class="row">
+      	
         <div class="col-xl-9 mx-auto">
           <h1 class="mb-5">A la recherche d'un spot ?</h1>
         </div>
+  
         <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
           <form th:action="@{/rechercher-spot}"  method="Post">
             <div class="form-row">
@@ -206,10 +211,11 @@
               </a>
             </li>
           </ul>
+
         </div>
       </div>
     </div>
-  
+
   </footer>
 
   <!-- Bootstrap core JavaScript -->

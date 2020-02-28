@@ -86,6 +86,8 @@ public class SpotController implements WebMvcConfigurer {
             modelAndView.setViewName( "spot-form" );
         } else {
 
+            User user = (User) httpSession.getAttribute( "loggedUser" );
+            spot.setUser( user );
             localServiceImpl.saveLocal( local );
             spotServiceImpl.saveSpot( spot );
 
