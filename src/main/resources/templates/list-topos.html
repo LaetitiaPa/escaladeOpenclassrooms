@@ -40,7 +40,7 @@
 		
 		<tbody>
 			<tr th:each="topo : ${AllTopos}"
-      		 th:if="${topo.user.id} != ${currentUser.id} and ${topo.availability} == true">
+      		 th:if="${topo.user.id}  and ${topo.availability} == true">
 				<td th:text="${topo.title}" />	
 				<td th:text="${topo.region}" />	
 				<td th:text="${topo.description}" />

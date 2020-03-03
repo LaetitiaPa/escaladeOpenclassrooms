@@ -17,18 +17,20 @@ public class Reservation {
     @Id
     @GeneratedValue( strategy = GenerationType.AUTO )
     @Column( name = "reservation_id" )
-    private Long id;
+    private Long    id;
 
     @Column( name = "date_reservation" )
-    private Date date = new Date();
+    private Date    date = new Date();
+
+    private boolean status;
 
     @OneToOne( cascade = { CascadeType.PERSIST, CascadeType.MERGE } )
     @JoinColumn( name = "user_id" )
-    private User user;
+    private User    user;
 
     @OneToOne( cascade = { CascadeType.PERSIST, CascadeType.MERGE } )
     @JoinColumn( name = "topo_id" )
-    private Topo topo;
+    private Topo    topo;
 
     public Long getId() {
         return id;
@@ -65,6 +67,14 @@ public class Reservation {
 
     public void setDate( Date date ) {
         this.date = date;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus( boolean status ) {
+        this.status = status;
     }
 
 }

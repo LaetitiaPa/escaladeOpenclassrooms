@@ -50,14 +50,33 @@ public class TopoController implements WebMvcConfigurer {
         model.addAttribute( "AllTopos", topoServiceImpl.getAllTopos() );
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userServiceImpl.findUserByEmail( auth.getName() );
-        httpSession.setAttribute( "loggedUser", user );
 
         model.addAttribute( "currentUser", user );
+
+        model.addAttribute( "role", user.getRole() );
 
         modelAndView.setViewName( "user-dashboard" );
 
         return modelAndView;
     }
+
+    @PostMapping( "/statut-topo/{id}" )
+    public String statut( @PathVariable( "id" ) Long topoId,
+            HttpSession httpSession, Model model ) {
+        Reservation resaTopo = new Reservation();
+        ModelAndView modelAndView = new ModelAndView();
+        Topo topo = topoRepository.findTopoById( topoId );
+
+        resaTopo.setStatus( false );
+        resaImpl.saveResa( resaTopo );
+
+        modelAndView.addObject( "successMessage", "Un nouvel emprunt a été créé pour le topo " + topo.getTitle() );
+
+        log.info( "Une nouvelle demande de réservation vient d'être faite pour le topo : " + topo.getTitle() );
+
+        return "redirect:/topos";
+    }
+
     /*
      * @PostMapping( value = "/topo/modifier" ) public ModelAndView
      * update( @ModelAttribute( "comment" ) @Valid Comment comment,
@@ -171,7 +190,6 @@ public class TopoController implements WebMvcConfigurer {
         Topo topo = topoRepository.findTopoById( topoId );
         resaTopo.setUser( user );
         resaTopo.setTopo( topo );
-        topo.setAvailability( false );
         resaImpl.saveResa( resaTopo );
 
         modelAndView.addObject( "successMessage", "Un nouvel emprunt a été créé pour le topo " + topo.getTitle() );

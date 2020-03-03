@@ -26,7 +26,7 @@ public class Topo {
     @NotBlank( message = "Merci de renseigner une région" )
     private String  region;
 
-    private Boolean availability = true;
+    private boolean availability = true;
 
     @ManyToOne
     @JoinColumn( name = "user_id" )

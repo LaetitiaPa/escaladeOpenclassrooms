@@ -6,6 +6,8 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -118,6 +120,13 @@ public class SpotController implements WebMvcConfigurer {
     @GetMapping( value = "/afficher-un-spot{name}" )
     public ModelAndView displaySpot( @RequestParam( "name" ) String name, @PathVariable( "name" ) String namePath,
             Model model ) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userServiceImpl.findUserByEmail( auth.getName() );
+
+        model.addAttribute( "currentUser", user );
+
+        model.addAttribute( "role", user.getRole() );
+
         model.addAttribute( "singleSpot", spotRepository.getSpotByName( name ) );
         Spot spot = spotRepository.findByName( name );
         String spotName = spot.getName();

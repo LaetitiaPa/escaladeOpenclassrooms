@@ -36,11 +36,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public void saveUser( User user ) {
         user.setPassword( bCryptPasswordEncoder.encode( user.getPassword() ) );
         user.setActive( true );
-        HashSet<Role> roles = new HashSet<Role>();
         Role role = new Role();
         role.setRole( "USER" );
-        roles.add( role );
-
+        user.setRole( role );
         userRepository.save( user );
     }
 
@@ -57,15 +55,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Transactional
     public UserDetails loadUserByUsername( String userName ) throws UsernameNotFoundException {
         User user = userRepository.findByEmail( userName );
-        List<GrantedAuthority> authorities = getUserAuthority( user.getRoles() );
+
+        List<GrantedAuthority> authorities = getUserAuthority( user.getRole() );
         return buildUserForAuthentication( user, authorities );
     }
 
-    private List<GrantedAuthority> getUserAuthority( Set<Role> userRoles ) {
+    private List<GrantedAuthority> getUserAuthority( Role role ) {
         Set<GrantedAuthority> roles = new HashSet<GrantedAuthority>();
-        for ( Role role : userRoles ) {
-            roles.add( new SimpleGrantedAuthority( role.getRole() ) );
-        }
+
+        roles.add( new SimpleGrantedAuthority( role.getRole() ) );
 
         List<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>( roles );
         return grantedAuthorities;
@@ -80,5 +78,4 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public User findUserByName( String name ) {
         return userRepository.findByName( name );
     }
-
 }

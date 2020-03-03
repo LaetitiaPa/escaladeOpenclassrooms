@@ -26,9 +26,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             throws Exception {
         auth
                 .inMemoryAuthentication()
-                .withUser( "uname@gmail.com" ).password( passwordEncoder().encode( "password" ) ).roles( "USER" )
+                .withUser( "user" ).password( passwordEncoder().encode( "password" ) ).roles( "USER" )
                 .and()
-                .withUser( "admin@gmail.com" ).password( passwordEncoder().encode( "admin" ) ).roles( "ADMIN" );
+                .withUser( "admin" ).password( passwordEncoder().encode( "admin" ) ).roles( "ADMIN" );
     }
 
     @Override
@@ -44,8 +44,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers( "/spots" ).permitAll()
                 .antMatchers( "/spot" ).permitAll()
                 .antMatchers( "/reservation" ).permitAll()
-                .antMatchers( "/topos" ).permitAll()
-                .antMatchers( "/topo" ).permitAll()
                 .antMatchers( "/afficher-un-spot" ).permitAll()
                 .antMatchers( "/registration" ).permitAll()
                 .antMatchers( "/admin/**", "/h2web/**" ).hasAuthority( "ADMIN" )

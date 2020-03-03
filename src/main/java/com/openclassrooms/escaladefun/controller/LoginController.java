@@ -26,6 +26,14 @@ public class LoginController {
     @Autowired
     private UserServiceImpl     userServiceImpl;
 
+    @RequestMapping( value = "/", method = RequestMethod.GET )
+    public ModelAndView accueil() {
+        ModelAndView modelAndView = new ModelAndView();
+
+        modelAndView.setViewName( "accueil" );
+        return modelAndView;
+    }
+
     @RequestMapping( value = { "/login" }, method = RequestMethod.GET )
     public ModelAndView login( Model model ) {
         ModelAndView modelAndView = new ModelAndView();
@@ -39,14 +47,6 @@ public class LoginController {
         User user = new User();
         modelAndView.addObject( "user", user );
         modelAndView.setViewName( "registration" );
-        return modelAndView;
-    }
-
-    @RequestMapping( value = "/", method = RequestMethod.GET )
-    public ModelAndView accueil() {
-        ModelAndView modelAndView = new ModelAndView();
-
-        modelAndView.setViewName( "accueil" );
         return modelAndView;
     }
 

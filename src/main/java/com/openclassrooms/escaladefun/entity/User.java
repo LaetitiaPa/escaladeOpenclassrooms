@@ -1,7 +1,6 @@
 package com.openclassrooms.escaladefun.entity;
 
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,8 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
@@ -45,7 +44,7 @@ public class User {
 
     private boolean       active;
 
-    @OneToMany( fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL )
+    @OneToMany( fetch = FetchType.EAGER, mappedBy = "user" )
     private List<Comment> comments;
 
     @OneToMany( mappedBy = "user", cascade = CascadeType.ALL )
@@ -54,9 +53,9 @@ public class User {
     @OneToMany( mappedBy = "user", cascade = CascadeType.ALL )
     private List<Spot>    spots;
 
-    @ManyToMany( cascade = CascadeType.ALL )
+    @OneToOne( cascade = CascadeType.ALL )
     @JoinTable( name = "user_role", joinColumns = @JoinColumn( name = "user_id" ), inverseJoinColumns = @JoinColumn( name = "role_id" ) )
-    private Set<Role>     roles;
+    private Role          role;
 
     public Long getId() {
         return id;
@@ -106,19 +105,19 @@ public class User {
         this.active = active;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
+    public Role getRole() {
+        return role;
     }
 
-    public void setRoles( Set<Role> roles ) {
-        this.roles = roles;
+    public void setRole( Role role ) {
+        this.role = role;
     }
 
     @Override
     public String toString() {
         return "User [id=" + id + ", email=" + email + ", password=" + password + ", name=" + name + ", lastName="
                 + lastName + ", active=" + active + ", comments=" + comments + ", topos=" + topos + ", spots=" + spots
-                + ", roles=" + roles + "]";
+                + ", role=" + role + "]";
     }
 
     public void setComments( List<Comment> comments ) {

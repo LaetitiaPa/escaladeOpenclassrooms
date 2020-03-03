@@ -40,6 +40,9 @@
 				<th>Departement</th>
 				<th>Nombre de voies</th>
 				<th>Cotation</th>
+				<th>Officiel de l'escalade</th>
+				<th th:if="*{role.role} == 'ADMIN'">Action</th>
+				
 			</tr>
 		</thead>
 		
@@ -49,7 +52,11 @@
 				<td th:text= "${spot.region}">
 				<td th:text= "${spot.departement}">
 				<td th:text= "${spot.track_number}">
-				<td th:text= "${spot.cotation}">
+				<td th:text="${spot.cotation}" >
+				<td th:text= "non"  th:if="${spot.tag} == false" th:else= "oui">
+				<td >
+			
+	                    
 				</td>
 		</tbody>		
 	</table>
@@ -60,9 +67,7 @@
 					<th>Date</th>
 					<th>Commentaire</th>
 					<th>Auteur</th>
-					<div th:if="${#httpServletRequest.isUserInRole('USER')}">
-						<th>Action</th>
-					 </div>
+					<th th:if="*{role.role} == 'ADMIN'">Action</th>
 					</tr>
 			     	</thead>
 					<tbody>
@@ -73,16 +78,14 @@
 						
 						<td>
 					
-							 <form th:action="@{/commentaire/{id}(id=${comment.id})}" th:object="${comment}" method="post">
-		                      <button type="submit" class = "btn btn-primary btn-sm" >Modifier</button>
-		                     </form>
-	                    
-		 
-							<div sec:authorize="hasRole('ADMIN')">
-						 <form th:action="@{/supprimer-commentaire/{id}(id=${comment.id})}" th:object="${comment}" method="post">
+						 <form th:action="@{/commentaire/{id}(id=${comment.id})}" th:if="*{role.role} == 'ADMIN'" th:object="${comment}" method="post">
+	                      <button type="submit" class = "btn btn-primary btn-sm" >Modifier</button>
+	                     </form>
+
+						 <form th:action="@{/supprimer-commentaire/{id}(id=${comment.id})}" method="post" th:if="*{role.role} == 'ADMIN'" th:object="${comment}" >
 	                      <button type="submit" class = "btn btn-danger btn-sm" >Supprimer</button>
 	                     </form>
-	                      </div>
+
 		                </td>
 		                
 		           
@@ -98,7 +101,7 @@
 	</div>
 
  </div>
- </div>
+
 </body>
 </html>
 
