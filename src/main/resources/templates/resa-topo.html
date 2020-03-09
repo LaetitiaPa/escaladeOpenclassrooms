@@ -9,42 +9,43 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
-    <title>Emprunter un Topo</title>
+    <title>Topo - Accepter une réservation</title>
 </head>
 <body>
 <!-- nav bar -->
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-12">
+        <div class="col-md-12" th:object="${topo}" >
 
-            <h2>Emprunt d'un Topo</h2>
+            <h2>Demande de réservation pour le topo <span th:object="${topo}" th:text="${topo.title}"></span> </h2>
 
             <br>
-            <p style="color:orange">N'empruntez que les topos dont la difficulté correspond à votre niveau de grimpeur</p>
-            <br>
-
-
-		<div class="container">
-		   <div class="row justify-content-center">
-		      <div class="col-md-8">
-		        <div class="card">
-		          <form name="my-form" action="#" th:action="@{/autorisation/reservation{id}(id=${topo.id})}" th:object="${topo}" enctype="multipart/form-data" method="post">
-		            <div class="card-header">Vous allez réserver le Topo n° <span th:text="${topo.getId()}"></span> intitulé : <span style="color:red; font-weight: bold" th:text="${topo.getTitle()}"></span></div>    
-		              <div class="row">
-		              	<div class="col-md-6 offset-md-4">
-		                  <button type="submit" class="btn btn-secondary">
-		                    Confirmer la réservation
-		                  </button>
-		               </div>
-		             </div>
-		          </form>
-		        </div>
-		      </div>
-		   </div>
-		 </div>
-	  </div>
-    </div>
-</div>
+ 
+            <br>	
+			<div class="container">
+			   <div class="row justify-content-center">
+			      <div class="col-md-8">
+			        <div class="card">
+			          <form name="my-form" action="#" th:action="@{/validation/reservation{id}(id=${resa.id})}" th:object="${resa}" enctype="multipart/form-data" method="post">
+			            <div class="card-header">Vous allez valider la réservation de <span th:text="${resa.user.name}"></span> pour le topo : <span style="color:red; font-weight: bold" th:text="${topo.getTitle()}"></span></div>    
+			              <div class="row">
+			              	<div class="col-md-6 offset-md-4">
+			                  <button type="submit" class="btn btn-secondary">
+			                    Confirmer
+			                  </button>
+			                  <span th:object="${successMessage}" ></span>
+			               </div>
+			             </div>
+			          </form>
+			        </div>
+			      </div>
+			   </div>
+	       </div>
+	    </div>
+     </div>
+     
+  </div>
+  
 </body>
 </html>
 

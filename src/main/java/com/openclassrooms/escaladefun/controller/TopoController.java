@@ -75,23 +75,40 @@ public class TopoController implements WebMvcConfigurer {
         Topo topo = topoRepository.findTopoById( id );
         topo.setAvailability( true );
         topoRepository.save( topo );
+
         log.info( "La demande de réservation est refusée" );
 
         return "redirect:/dashboard";
     }
 
     @GetMapping( value = "/reservation{id}" )
-
     public String Resa( @RequestParam( value = "id" ) Long resaId, Model model, HttpSession httpSession ) {
+        Reservation resa = resaRepository.findReservationById( resaId );
+        Topo topo = resa.getTopo();
+        Long topoById = topo.getId();
+        User user = resa.getUser();
+        model.addAttribute( "user", userRepository.findById( user.getId() ) );
+        model.addAttribute( "topo", topoRepository.findTopoById( topoById ) );
+        model.addAttribute( "resa", resa );
+
+        return "resa-topo";
+    }
+
+    @PostMapping( value = "/validation/reservation{id}" )
+    public String ResaConfirmation( @PathVariable( value = "id" ) Long resaId, Model model, HttpSession httpSession ) {
+        ModelAndView modelAndView = new ModelAndView();
         Reservation resa = resaRepository.findReservationById( resaId );
         User user = resa.getUser();
         resa.setStatus( true );
         resaRepository.save( resa );
         model.addAttribute( "user", userRepository.findById( user.getId() ) );
+        model.addAttribute( "resa", resa );
 
+        modelAndView.addObject( "successMessage",
+                "Votre retour a bien été pris en compte et sera transmis au membre concerné" );
         log.info( "La demande de réservation est acceptée" );
 
-        return "resa-topo";
+        return "redirect:/dashboard";
     }
 
     @RequestMapping( value = "/demande-emprunt-topo", method = RequestMethod.GET )
@@ -184,9 +201,8 @@ public class TopoController implements WebMvcConfigurer {
         model.addAttribute( "AllTopos", topoServiceImpl.getAllTopos() );
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userServiceImpl.findUserByEmail( auth.getName() );
-        httpSession.setAttribute( "loggedUser", user );
-
         model.addAttribute( "currentUser", user );
+
         return "list-topos";
     }
 
