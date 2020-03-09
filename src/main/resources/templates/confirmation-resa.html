@@ -28,7 +28,7 @@
 		   <div class="row justify-content-center">
 		      <div class="col-md-8">
 		        <div class="card">
-		          <form name="my-form" action="#" th:action="@{/autorisation/reservation{id}(id=${topo.id})}" th:object="${topo}" enctype="multipart/form-data" method="post">
+		          <form name="my-form" action="#" th:action="@{/reservation/{id}(id=${topo.id})}" th:object="${topo}" enctype="multipart/form-data" method="post">
 		            <div class="card-header">Vous allez réserver le Topo n° <span th:text="${topo.getId()}"></span> intitulé : <span style="color:red; font-weight: bold" th:text="${topo.getTitle()}"></span></div>    
 		              <div class="row">
 		              	<div class="col-md-6 offset-md-4">

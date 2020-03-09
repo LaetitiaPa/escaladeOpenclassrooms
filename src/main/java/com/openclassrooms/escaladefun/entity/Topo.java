@@ -1,5 +1,7 @@
 package com.openclassrooms.escaladefun.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,7 +9,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class Topo {
@@ -15,22 +20,29 @@ public class Topo {
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY )
     @Column( name = "topo_id" )
-    private Long    id;
+    private Long        id;
 
     @NotBlank( message = "Merci de renseigner un titre" )
-    private String  title;
+    private String      title;
 
     @NotBlank( message = "Merci de renseigner une description" )
-    private String  description;
+    private String      description;
 
     @NotBlank( message = "Merci de renseigner une région" )
-    private String  region;
+    private String      region;
 
-    private boolean availability = true;
+    @DateTimeFormat( iso = DateTimeFormat.ISO.DATE )
+    private Date        publishingDate;
+
+    private boolean     availability = true;
+
+    @OneToOne
+    @JoinColumn( name = "user_id" )
+    private User        user;
 
     @ManyToOne
-    @JoinColumn( name = "user_id" )
-    private User    user;
+    @JoinColumn( name = "resa_id" )
+    private Reservation resa;
 
     public Long getId() {
         return id;
@@ -46,10 +58,6 @@ public class Topo {
 
     public void setTitle( String title ) {
         this.title = title;
-    }
-
-    public Boolean getAvailability() {
-        return availability;
     }
 
     public void setAvailability( Boolean availability ) {
@@ -80,16 +88,42 @@ public class Topo {
         this.user = user;
     }
 
+    public Date getPublishingDate() {
+        return publishingDate;
+    }
+
+    public void setPublishingDate( Date publishingDate ) {
+        this.publishingDate = publishingDate;
+    }
+
+    public Boolean getAvailability() {
+        return availability;
+    }
+
+    public void setAvailability( boolean availability ) {
+        this.availability = availability;
+    }
+
+    public Reservation getResa() {
+        return resa;
+    }
+
+    public void setResa( Reservation resa ) {
+        this.resa = resa;
+    }
+
     public Topo( @NotBlank( message = "Merci de renseigner un titre" ) String title,
             @NotBlank( message = "Merci de renseigner une description" ) String description,
-            @NotBlank( message = "Merci de renseigner une région" ) String region, Boolean availability,
-            User user ) {
+            @NotBlank( message = "Merci de renseigner une région" ) String region, Date publishingDate,
+            boolean availability, User user ) {
         super();
         this.title = title;
         this.description = description;
         this.region = region;
+        this.publishingDate = publishingDate;
         this.availability = availability;
         this.user = user;
+
     }
 
     public Topo() {

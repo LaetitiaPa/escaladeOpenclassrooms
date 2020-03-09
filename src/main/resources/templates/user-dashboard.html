@@ -27,28 +27,28 @@
 
 <body>
   <!-- Navigation -->
-  <nav class="navbar navbar-light bg-light static-top">
+  <nav class="navbar navbar-dark bg-dark static-top">
     <div class="container">
-      <a class="navbar-brand" th:href="@{/}">Les Amis de l'Escalade</a>
+      <a class="navbar-brand" th:href="@{/home}">Les Amis de l'Escalade</a>
       <ul class="navbar-nav ml-left">
           <li class="nav-item active">
-            <a class="nav-link" th:href="@{/spots}">Ajouter un topo
+              <a class="nav-link" th:href="@{/dashboard}">Mes Topos
               <span class="sr-only">(current)</span>
             </a>
           </li>
           </ul>
-           <ul class="navbar-nav ml-left">
+               <ul class="navbar-nav ml-left">
            
           <li class="nav-item active">
 
-            <a class="nav-link" th:href="@{/topos}">Mes demandes 
+             <a class="nav-link" th:href="@{/ajouter-un-topo}">Ajouter un topo
             </a>
           </li>
         
           </ul>
           <ul class="navbar-nav ml-left">
           <li class="nav-item active">
-            <a class="nav-link" th:href="@{/rechercher-spot}" >Réservations en attente
+            <a class="nav-link" th:href="@{/demande-emprunt-topo}">Mes demandes d'emprunt
             </a>
           </li>
           </ul>
@@ -66,13 +66,10 @@
   </div>
  </nav>
  
- <h3>Mon espace</h3>
- 	<h3 th:if="*{role.role} == 'ADMIN'" th:text= "${role.role}" ></h3>
+ <h3 th:if="*{role.role} == 'ADMIN'" th:text= "${role.role}">Mon espace</h3>
 	<hr>
-	
-	<div class="row justify-content-center">
-    <div class="col-7">
-
+	<div class="row justify-content-content-around">
+    <div class="col-5">
     <h4 >Mes topos</h4>
 	<table class="table table-bordered table-striped">
 		<thead class="thead-dark">
@@ -88,6 +85,11 @@
 				<td th:text="${topo.title}" />	
 				<td th:text="${topo.region}" />	
 				<td th:text="${topo.description}" />
+			<!-- 	<td>
+				<div th:switch="${topo.resa.status}"> 
+				  <p th:case= false >Disponible</p>
+				  <p th:case= true>Réservé</p>
+			    </div> -->
 				<td>
 				<a th:href="@{/}" 
 				   class="btn btn-info btn-sm">
@@ -100,12 +102,42 @@
 				</td>
 			</tr>
 		</tbody>		
+	  </table>
+	</div>
+    <div class="col-5">
+    <h4>Topos réservés</h4>
+	<table class="table table-bordered table-striped">
+		<thead class="thead-dark">
+			<tr>
+				<th>Titre</th>
+				<th>Région</th>
+				<th>Description</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="topo : ${AllTopos}" th:if="${topo.user.id} == ${currentUser.id} and ${topo.availability} == false and ${topo.resa.status} == false" >
+				<td th:text="${topo.title}" />	
+				<td th:text="${topo.region}" />	
+				<td th:text="${topo.description}" />
+				<td>
+				<a th:href="@{/reservation(id=${topo.resa.id})}" 
+				   class="btn btn-info btn-sm">
+					Accepter
+				</a>
+				<a th:href="@{/refus-reservation/topo{id}(id=${topo.id})}"
+				   class="btn btn-danger btn-sm">
+					Refuser
+				</a>
+				</td>
+			</tr>
+		</tbody>		
 	</table>
   </div>
 </div>
 
   <!-- Footer -->
-  <footer class="footer fixed-bottom navbar-light">
+  <footer class="footer fixed-bottom navbar-dark">
     <div class="container">
       <div class="row">
         <div class="col-lg-6 h-100 text-center text-lg-left my-auto">

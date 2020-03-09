@@ -1,8 +1,12 @@
 package com.openclassrooms.escaladefun.controller;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.openclassrooms.escaladefun.entity.User;
 
@@ -19,7 +23,10 @@ public class TopoForm {
     @NotBlank
     private String  description;
 
-    private Boolean availability = true;
+    private boolean availability = true;
+
+    @DateTimeFormat( iso = DateTimeFormat.ISO.DATE )
+    private Date    publishingDate;
 
     private User    user;
 
@@ -61,6 +68,34 @@ public class TopoForm {
 
     public void setAvailability( Boolean availability ) {
         this.availability = availability;
+    }
+
+    public Date getPublishingDate() {
+        return publishingDate;
+    }
+
+    public void setPublishingDate( Date publishingDate ) {
+        this.publishingDate = publishingDate;
+    }
+
+    public void setAvailability( boolean availability ) {
+        this.availability = availability;
+    }
+
+    public TopoForm( @Size( min = 4, message = "Le titre doit comporter au moins 4 caractères" ) @NotBlank String title,
+            @NotBlank String region, @NotBlank String description, Date publishingDate, boolean availability,
+            User user ) {
+        super();
+        this.title = title;
+        this.region = region;
+        this.description = description;
+        this.publishingDate = publishingDate;
+        this.availability = availability;
+        this.user = user;
+    }
+
+    public TopoForm() {
+        // TODO Auto-generated constructor stub
     }
 
 }

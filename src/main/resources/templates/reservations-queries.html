@@ -29,10 +29,11 @@
   <!-- Navigation -->
   <nav class="navbar navbar-light bg-light static-top">
     <div class="container">
-      <a class="navbar-brand" th:href="@{/}">Les Amis de l'Escalade</a>
+     <a class="navbar-brand" th:href="@{/}">Les Amis de l'Escalade</a>
       <ul class="navbar-nav ml-left">
           <li class="nav-item active">
-            <a class="nav-link" th:href="@{/spots}">Spots
+        
+            <a class="nav-link" th:href="@{/dashboard}">Mes Topos
               <span class="sr-only">(current)</span>
             </a>
           </li>
@@ -41,14 +42,13 @@
            
           <li class="nav-item active">
 
-            <a class="nav-link" th:href="@{/topos}">Topos
+            <a class="nav-link" th:href="@{/ajouter-un-topo}">Ajouter un topo
             </a>
           </li>
-        
           </ul>
           <ul class="navbar-nav ml-left">
           <li class="nav-item active">
-            <a class="nav-link" th:href="@{/rechercher-spot}" >Trouver un Spot
+            <a class="nav-link" th:href="@{/demande-emprunt-topo}">Mes demandes d'emprunt
             </a>
           </li>
           </ul>
@@ -68,59 +68,64 @@
  
  <h3>Mon espace</h3>
 
-	<a th:href="@{/ajouter-un-topo}"
-		class="btn btn-primary btn-sm mb-3">
-		Ajouter un topo
-	</a>
-	<a th:href="@{/}"
-		class="btn btn-primary btn-sm mb-3">
-		Mes demandes de réservation
-	</a>
-    <a th:href="@{/}"
-		class="btn btn-primary btn-sm mb-3">
-		Réservation en attente de retour
-	</a>
-
 	<hr>
-	
-<div class="col-7">
+	<div class="row justify-content-content-around">
+	<div class="col-5">
 	<h4>Mes demandes de réservation</h4>
 	<table class="table table-bordered table-striped">
 		<thead class="thead-dark">
 		<tr>
-			<th>Topo</th>
-			<th>Demandeur</th>
-			<th>Date</th>
+			<th>Nom</th>
+			<th>Description</th>
+			<th>Region</th>
+			<th>Date publication</th>
 			<th>Statut</th>
-			<th>Action</th>
+
 		</tr>
 		</thead>
 		<tbody>
-		<tr th:each="topo : ${AllTopos}" th:if="${topo.user.id} == ${currentUser.id} and ${topo.availability} == false ">
-			<td th:text="${topo.title}" />	
-			<td th:text="${topo.region}" />	
-			<td th:text="${topo.description}" />
+		<tr th:each="resa : ${AllResa}"  th:if="${resa.status} != true" >
+			<td th:text="${resa.title}"/>	
+			<td th:text="${resa.description}"/>
+			<td th:text="${resa.region}"/>
+			<td th:text="${#dates.format(resa.date,'dd-MMM-yyyy')}"/>
 			<td>
-			<div class="form-group" th:field="*{topo.availability}">
-              <select class="form-control">
-			      <option th:value= "1"       th:text="Acceptée"></option>
-			      <option th:value= "0"   th:text="Refusée"></option>
-			    </select>
-			    </div>
-			</td>
-			<td>
-				<a th:href="@{/}"
-				   class="btn btn-info btn-sm">
-					Enregistrer
-				</a>
-			</td>
+			<div th:switch="${resa.availability}"> 
+			  <p th:case= false >En attente</p>
+			  <p th:case= true>Refusé</p>
+			</div>
 		</tr>
 	</tbody>		
  </table>
 </div>
 
+
+<div class="col-5">
+	<h4>Mes demandes acceptées</h4>
+	<table class="table table-bordered table-striped">
+		<thead class="thead-dark">
+		<tr>
+			<th>Nom</th>
+			<th>Description</th>
+			<th>Region</th>
+			<th>Date publication</th>
+
+		</tr>
+		</thead>
+		<tbody>
+		<tr th:each="resa : ${AllResa}" th:if="${resa.status} == true and ${resa.availability} == false">
+			<td th:text="${resa.title}"/>	
+			<td th:text="${resa.description}"/>
+			<td th:text="${resa.region}"/>
+			<td th:text="${#dates.format(resa.date,'dd-MMM-yyyy')}"/>
+		</tr>
+	</tbody>		
+ </table>
+</div>
+</div>
+
   <!-- Footer -->
-  <footer class="footer bg-light">
+  <footer class="footer fixed-bottom navbar-light">
     <div class="container">
       <div class="row">
         <div class="col-lg-6 h-100 text-center text-lg-left my-auto">

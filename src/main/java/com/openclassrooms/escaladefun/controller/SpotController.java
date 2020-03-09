@@ -212,6 +212,7 @@ public class SpotController implements WebMvcConfigurer {
             modelAndView.setViewName( "comment-form" );
             return modelAndView;
         } else {
+
             commentServiceImpl.editComment( comment );
 
             modelAndView.addObject( "successMessage", "Votre commentaire a bien été modifié" );
@@ -228,12 +229,6 @@ public class SpotController implements WebMvcConfigurer {
         commentServiceImpl.deleteComment( id );
 
         log.info( "Le commentaire est supprimé" );
-
-        return "list-spots";
-    }
-
-    @GetMapping( value = "/test" )
-    public String test() {
 
         return "list-spots";
     }

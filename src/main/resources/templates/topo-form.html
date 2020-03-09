@@ -38,15 +38,13 @@
               	<input type="text" th:field="*{description}" class="form-control" required autofocus>
                 <label for="inputLastname">DESCRIPTION</label>
              </div>
-<!--               
+          
  			  <label th:if="${#fields.hasErrors('publishingDate')}" th:errors="*{publishingDate}"class="validation-message"></label>
               <div class="form-label-group">
-                <input type="date" th:field="*{publishingDate}" class="form-control" required>
+                <input type="date" pattern="yyyy-MM-dd" th:field="*{publishingDate}" class="form-control" required>
                 <label for="inputEmail">DATE DE PUBLICATION</label>
               </div>
-               -->
-           
-              
+          
               <hr>
 
               <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">SOUMETTRE CE TOPO</button>
