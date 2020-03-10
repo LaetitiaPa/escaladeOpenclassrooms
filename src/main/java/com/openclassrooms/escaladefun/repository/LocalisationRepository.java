@@ -8,4 +8,6 @@ import com.openclassrooms.escaladefun.entity.Localisation;
 @Repository( "localRepository" )
 public interface LocalisationRepository extends JpaRepository<Localisation, Long> {
 
+    Localisation findLocalisationBySpotId( Long spotId );
+
 }

@@ -26,6 +26,7 @@ import com.openclassrooms.escaladefun.entity.Localisation;
 import com.openclassrooms.escaladefun.entity.Spot;
 import com.openclassrooms.escaladefun.entity.User;
 import com.openclassrooms.escaladefun.repository.CommentRepository;
+import com.openclassrooms.escaladefun.repository.LocalisationRepository;
 import com.openclassrooms.escaladefun.repository.SpotRepository;
 import com.openclassrooms.escaladefun.repository.UserRepository;
 import com.openclassrooms.escaladefun.service.CommentServiceImpl;
@@ -46,6 +47,9 @@ public class SpotController implements WebMvcConfigurer {
 
     @Autowired
     SpotRepository              spotRepository;
+
+    @Autowired
+    LocalisationRepository      localRepository;
 
     @Autowired
     CommentRepository           commentRepository;
@@ -185,27 +189,62 @@ public class SpotController implements WebMvcConfigurer {
 
     }
 
-    /*
-     * private Spot convertSpotByNameToSpot( SpotByName spotByName ) {
-     * 
-     * Spot spot = new Spot( spotByName.getName(), spotByName.getTrack_number(),
-     * spotByName.getHeight(), spotByName.getCotation(),
-     * spotByName.getClimbing_type(), spotByName.getHolds_type(),
-     * spotByName.getTracks_pract(), spotByName.isTag() );
-     * 
-     * return spot; }
-     */
+    @GetMapping( value = "/spot/{id}" )
+    public String editSpot( @PathVariable Long id, Model model ) {
+        Spot spot = spotServiceImpl.findById( id );
+        model.addAttribute( "spot", spotServiceImpl.findById( id ) );
+        model.addAttribute( "local", localRepository.findLocalisationBySpotId( spot.getId() ) );
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userServiceImpl.findUserByEmail( auth.getName() );
+        model.addAttribute( "role", user.getRole() );
+
+        return "modify-spot";
+
+    }
+
+    @PostMapping( value = "/spot/{id}" )
+    public ModelAndView updateSpot( @PathVariable Long id, @ModelAttribute Spot spot,
+            @ModelAttribute Localisation local ) {
+        ModelAndView modelAndView = new ModelAndView();
+
+        spotServiceImpl.editSpot( spot );
+
+        modelAndView.addObject( "successMessage", "Vos modifications ont bien été apportées" );
+        modelAndView.setViewName( "redirect:/dashboard" );
+
+        log.info( "Le spot est modifié" );
+
+        return modelAndView;
+    }
+
+    @PostMapping( value = "/supprimer-spot/{id}" )
+    public String deleteSpot( @PathVariable Long id, Model model ) {
+        commentServiceImpl.deleteComment( id );
+
+        log.info( "Le commentaire est supprimé" );
+
+        return "list-spots";
+    }
 
     @PostMapping( value = "/commentaire/{id}" )
     public String edit( @PathVariable Long id, Model model ) {
         model.addAttribute( "comment", commentServiceImpl.findById( id ) );
+        // Create method
+        /*
+         * model.addAttribute( "spotComment",
+         * commentServiceImpl.findTopoByCommentId( id ) );
+         */
 
         return "comment-form";
 
     }
 
     @PostMapping( value = "/commentaire/modifier" )
-    public ModelAndView update( @ModelAttribute( "comment" ) @Valid Comment comment, BindingResult result ) {
+    public ModelAndView update( @PathVariable Long id, @ModelAttribute( "comment" ) @Valid Comment comment,
+            BindingResult result,
+            Model model ) {
+        model.addAttribute( "comment", commentServiceImpl.findById( id ) );
+        Spot spot = comment.getSpot();
         ModelAndView modelAndView = new ModelAndView();
         if ( result.hasErrors() ) {
 
@@ -213,6 +252,7 @@ public class SpotController implements WebMvcConfigurer {
             return modelAndView;
         } else {
 
+            comment.setSpot( spot );
             commentServiceImpl.editComment( comment );
 
             modelAndView.addObject( "successMessage", "Votre commentaire a bien été modifié" );

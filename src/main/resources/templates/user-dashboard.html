@@ -37,15 +37,14 @@
             </a>
           </li>
           </ul>
-               <ul class="navbar-nav ml-left">
-           
-          <li class="nav-item active">
 
-             <a class="nav-link" th:href="@{/ajouter-un-topo}">Ajouter un topo
+          <ul class="navbar-nav ml-left">
+          <li class="nav-item active">
+            <a class="nav-link" th:href="@{/ajouter-un-topo}">Ajouter un topo
             </a>
           </li>
-        
           </ul>
+          
           <ul class="navbar-nav ml-left">
           <li class="nav-item active">
             <a class="nav-link" th:href="@{/demande-emprunt-topo}">Mes demandes d'emprunt
@@ -62,21 +61,22 @@
       			<input hidden type="submit" value="Se déconnecter"/>
    			</form> 
 		  </div>
-   </div> 
-  </div>
+   		</div> 
+  	 </div>
  </nav>
  
  <h3 th:if="*{role.role} == 'ADMIN'" th:text= "${role.role}">Mon espace</h3>
 	<hr>
-	<div class="row justify-content-content-around">
-    <div class="col-5">
-    <h4 >Mes topos</h4>
-	<table class="table table-bordered table-striped">
+	<div class="row justify-content-md-center">
+    <div class="col-8">
+    <h4 th:if="*{role.role} == 'ADMIN'" th:text= "Spots" >Mes topos</h4>
+	<table class="table table-bordered table-striped"  th:if="*{role.role} == 'USER'">
 		<thead class="thead-dark">
 			<tr>
 				<th>Titre</th>
 				<th>Région</th>
 				<th>Description</th>
+				<th>Statut</th>
 				<th>Action</th>
 			</tr>
 		</thead>
@@ -85,13 +85,14 @@
 				<td th:text="${topo.title}" />	
 				<td th:text="${topo.region}" />	
 				<td th:text="${topo.description}" />
-			<!-- 	<td>
-				<div th:switch="${topo.resa.status}"> 
-				  <p th:case= false >Disponible</p>
-				  <p th:case= true>Réservé</p>
-			    </div> -->
 				<td>
-				<a th:href="@{/}" 
+				<div th:switch="${topo.availability}"> 
+				  <p th:case= false >Indisponible</p>
+				  <p th:case= true>Disponible</p>
+			    </div>
+				<td>
+		
+				<a th:href="@{/}"
 				   class="btn btn-info btn-sm">
 					Modifier
 				</a>
@@ -103,15 +104,51 @@
 			</tr>
 		</tbody>		
 	  </table>
+
+	  	<table class="table table-bordered table-striped"  th:if="*{role.role} == 'ADMIN'">
+		<thead class="thead-dark">
+			<tr>
+				<th>Nom</th>
+				<th>Région</th>
+				<th>Officiel Les amis de l'escalade</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="spot : ${AllSpots}"  >
+				<td th:text="${spot.name}" />	
+				<td th:text="${spot.region}"/>
+				<td>
+				<div th:switch="${spot.tag}"> 
+				  <p th:case= false >Non</p>
+				  <p th:case= true>Oui</p>
+			    </div>
+				<td>
+				<a th:href="@{/afficher-un-spot(name=${spot.name})}" 
+				   class="btn btn-info btn-sm">
+					Voir
+				</a>
+				 <form th:action="@{/spot/{id}(id=${spot.id})}" th:if="*{role.role} == 'ADMIN'" th:object="${spot}" method="get">
+	             	<button type="submit" class = "btn btn-primary btn-sm" >Modifier</button>
+	             </form>
+				<a th:href="@{/}"
+				   class="btn btn-danger btn-sm">
+					Supprimer
+				</a>
+				</td>
+			</tr>
+		</tbody>		
+	  </table>
 	</div>
     <div class="col-5">
-    <h4>Topos réservés</h4>
-	<table class="table table-bordered table-striped">
+    <h4 th:if="*{role.role} == 'USER'">Topos réservés</h4>
+	<table class="table table-bordered table-striped" th:if="*{role.role} == 'USER'" >
 		<thead class="thead-dark">
 			<tr>
 				<th>Titre</th>
 				<th>Région</th>
 				<th>Description</th>
+				<th>Demandeur</th>
 				<th>Action</th>
 			</tr>
 		</thead>
@@ -119,7 +156,8 @@
 			<tr th:each="topo : ${AllTopos}" th:if="${topo.user.id} == ${currentUser.id} and ${topo.availability} == false and ${topo.resa.status} == false" >
 				<td th:text="${topo.title}" />	
 				<td th:text="${topo.region}" />	
-				<td th:text="${topo.description}" />
+				<td th:text="${topo.description}"/>
+				<td th:text="${topo.resa.}"/>
 				<td>
 				<a th:href="@{/reservation(id=${topo.resa.id})}" 
 				   class="btn btn-info btn-sm">
@@ -136,9 +174,9 @@
 	
   </div>
 </div>
- <span th:object="${successMessage}" ></span>
+
   <!-- Footer -->
-  <footer class="footer fixed-bottom navbar-dark">
+  <footer class="footer bottom navbar-dark">
     <div class="container">
       <div class="row">
         <div class="col-lg-6 h-100 text-center text-lg-left my-auto">

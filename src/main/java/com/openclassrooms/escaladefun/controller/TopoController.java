@@ -24,6 +24,7 @@ import com.openclassrooms.escaladefun.entity.Reservation;
 import com.openclassrooms.escaladefun.entity.Topo;
 import com.openclassrooms.escaladefun.entity.User;
 import com.openclassrooms.escaladefun.repository.ReservationRepository;
+import com.openclassrooms.escaladefun.repository.SpotRepository;
 import com.openclassrooms.escaladefun.repository.TopoRepository;
 import com.openclassrooms.escaladefun.repository.UserRepository;
 import com.openclassrooms.escaladefun.service.ReservationServiceImpl;
@@ -45,6 +46,9 @@ public class TopoController implements WebMvcConfigurer {
     TopoRepository              topoRepository;
 
     @Autowired
+    SpotRepository              spotRepository;
+
+    @Autowired
     UserRepository              userRepository;
 
     @Autowired
@@ -57,6 +61,7 @@ public class TopoController implements WebMvcConfigurer {
     public ModelAndView dashboard( Model model ) {
         ModelAndView modelAndView = new ModelAndView();
         model.addAttribute( "AllTopos", topoServiceImpl.getAllTopos() );
+        model.addAttribute( "AllSpots", spotRepository.getSpots() );
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userServiceImpl.findUserByEmail( auth.getName() );
         model.addAttribute( "AllResa", topoRepository.findTopoByReservation( user.getId() ) );

@@ -39,7 +39,7 @@
           </ul>
            <ul class="navbar-nav ml-left">
           <li class="nav-item active">
-            <a class="nav-link" th:href="@{/topos}">Topos
+            <a class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Vous devez être connecté pour accéder à cet espace" th:href="@{/topos}">Topos
             </a>
           </li>
           </ul>
@@ -50,16 +50,6 @@
           </li>
           </ul>
       
-   <!--   	<div class="btn-group" th:if="${userName != null}">
-		  <button type="button" th:text="${userName}" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		  </button>
-		  <div class="dropdown-menu">
-		    <a class="dropdown-item" th:href="@{/login}">Mon espace</a>
-		    <a class="dropdown-item" th:href="@{/logout}"> Se déconnecter</a>
-		    <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
-      			<input hidden type="submit" value="Se déconnecter"/>
-   			</form> 
-		  </div> -->
 		  <div class="btn-group" >
 		  <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 		   Se connecter
@@ -209,12 +199,19 @@
         </div>
       </div>
     </div>
+ 
   </footer>
 
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+ <script th:inline="javascript">
+ <script th:inline="javascript">
+ $(function () {
+	  $('[data-toggle="tooltip"]').tooltip()
+	})
+ </script>
+</script>
 </body>
 
 </html>

@@ -15,7 +15,7 @@ public interface SpotRepository extends JpaRepository<Spot, Long> {
 
     List<Spot> findByCotation( String cotation );
 
-    @Query( "SELECT NEW com.openclassrooms.escaladefun.controller.SpotByRegion( s.name, l.region ) FROM Spot  s JOIN Localisation  l ON "
+    @Query( "SELECT NEW com.openclassrooms.escaladefun.controller.SpotByRegion( s.name, l.region, s.tag, s.id ) FROM Spot  s JOIN Localisation  l ON "
             + "l.id = s.id" )
     List<SpotByRegion> getSpots();
 
