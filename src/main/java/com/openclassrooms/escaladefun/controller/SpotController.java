@@ -279,7 +279,7 @@ public class SpotController implements WebMvcConfigurer {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName(
-                "search-results" );
+                "search-test" );
 
         return modelAndView;
     }
@@ -290,10 +290,11 @@ public class SpotController implements WebMvcConfigurer {
             @RequestParam( value = "region" ) String region,
             @RequestParam( value = "height" ) Integer height,
             @RequestParam( value = "climbingType" ) String climbingType,
+            @RequestParam( value = "holdsType" ) String holdsType,
             @ModelAttribute( "spot" ) Spot spot, @ModelAttribute( "local" ) Localisation local, Model model ) {
         ModelAndView modelAndView = new ModelAndView();
         model.addAttribute( "filterSpot",
-                spotRepository.findSpotByRegionAndCotation( region, cotation, height, climbingType ) );
+                spotRepository.findSpotByRegionAndCotation( region, cotation, height, climbingType, holdsType ) );
         modelAndView.setViewName( "search-results" );
 
         log.info( "Une nouvelle recherche est effectuée" );

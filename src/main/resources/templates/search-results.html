@@ -14,134 +14,27 @@
 
 <body>
 
-<form   th:action="@{/spot}" method="get">
-	<select class='postform' th:field="*{local.region}" th:required="required" >
-		<option value='0'>Toutes les localisations</option>
-		<option class="level-1" value="Provence">&nbsp;&nbsp;&nbsp;Provence Alpes Cote d&rsquo;Azur&nbsp;&nbsp;</option>
-		<option class="level-1" value="Alsace">&nbsp;&nbsp;&nbsp;Alsace&nbsp;&nbsp;</option>
-		<option class="level-2" value="1509">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bas Rhin&nbsp;&nbsp;</option>
-		<option class="level-1" value="1446">&nbsp;&nbsp;&nbsp;Aquitaine&nbsp;&nbsp;</option>
-		<option class="level-2" value="1447">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dordogne&nbsp;&nbsp;</option>
-		<option class="level-2" value="1448">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gironde&nbsp;&nbsp;</option>
-		<option class="level-2" value="1451">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pyrénées Atlantiques&nbsp;&nbsp;</option>
-		<option class="level-1" value="1274">&nbsp;&nbsp;&nbsp;Bourgogne&nbsp;&nbsp;</option>
-		<option class="level-2" value="1275">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Côte d&rsquo;Or&nbsp;&nbsp;</option>
-		<option class="level-2" value="1395">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nièvre&nbsp;&nbsp;</option>
-		<option class="level-2" value="1386">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Saone et Loire&nbsp;&nbsp;</option>
-		<option class="level-2" value="1276">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Yonne&nbsp;&nbsp;</option>
-		<option class="level-1" value="1479">&nbsp;&nbsp;&nbsp;Bretagne&nbsp;&nbsp;</option>
-		<option class="level-2" value="1480">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Côtes d&rsquo;Armor&nbsp;&nbsp;</option>
-		<option class="level-2" value="1481">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Finistère&nbsp;&nbsp;</option>
-		<option class="level-2" value="1482">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ille et Vilaine&nbsp;&nbsp;</option>
-		<option class="level-1" value="1635">&nbsp;&nbsp;&nbsp;Corse&nbsp;&nbsp;</option>
-		<option class="level-1" value="1474">&nbsp;&nbsp;&nbsp;Franche Comté&nbsp;&nbsp;</option>
-		<option class="level-2" value="1475">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Doubs&nbsp;&nbsp;</option>
-		<option class="level-2" value="1476">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Jura&nbsp;&nbsp;</option>
-		<option class="level-2" value="1478">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Territoire de Belfort&nbsp;&nbsp;</option>
-		<option class="level-1" value="1488">&nbsp;&nbsp;&nbsp;Haute Normandie&nbsp;&nbsp;</option>
-		<option class="level-2" value="1489">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Eure&nbsp;&nbsp;</option>
-		<option class="level-1" value="1415">&nbsp;&nbsp;&nbsp;Ile de France&nbsp;&nbsp;</option>
-		<option class="level-2" value="1417">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Seine et Marne&nbsp;&nbsp;</option>
-		<option class="level-1" value="1389">&nbsp;&nbsp;&nbsp;Languedoc Roussillon&nbsp;&nbsp;</option>
-		<option class="level-2" value="1391">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Aude&nbsp;&nbsp;</option>
-		<option class="level-2" value="1390">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gard&nbsp;&nbsp;</option>
-		<option class="level-2" value="1392">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hérault&nbsp;&nbsp;</option>
-		<option class="level-2" value="1393">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Lozère&nbsp;&nbsp;</option>
-		<option class="level-2" value="1394">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pyrénées orientales&nbsp;&nbsp;</option>
-		<option class="level-1" value="1503">&nbsp;&nbsp;&nbsp;Lorraine&nbsp;&nbsp;</option>
-		<option class="level-2" value="1506">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Moselle&nbsp;&nbsp;</option>
-		<option class="level-1" value="1437">&nbsp;&nbsp;&nbsp;Midi Pyrénées&nbsp;&nbsp;</option>
-		<option class="level-2" value="1438">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ariège&nbsp;&nbsp;</option>
-		<option class="level-2" value="1439">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Aveyron&nbsp;&nbsp;</option>
-		<option class="level-2" value="1443">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hautes Pyrénées&nbsp;&nbsp;</option>
-		<option class="level-2" value="1442">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Lot&nbsp;&nbsp;</option>
-		<option class="level-2" value="1444">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tarn&nbsp;&nbsp;</option>
-		<option class="level-1" value="1461">&nbsp;&nbsp;&nbsp;Pays de la Loire&nbsp;&nbsp;</option>
-		<option class="level-2" value="1463">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Maine et Loire&nbsp;&nbsp;</option>
-		<option class="level-2" value="1466">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vendée&nbsp;&nbsp;</option>
-		<option class="level-1" value="1516">&nbsp;&nbsp;&nbsp;Poitou Charentes&nbsp;&nbsp;</option>
-		<option class="level-2" value="1517">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Charente&nbsp;&nbsp;</option>
-		<option class="level-2" value="1520">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vienne&nbsp;&nbsp;</option>
-		<option class="level-2" value="1411">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Alpes de haute Provence&nbsp;&nbsp;</option>
-		<option class="level-2" value="1412">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Alpes Maritime&nbsp;&nbsp;</option>
-		<option class="level-2" value="1413">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bouches du Rhone&nbsp;&nbsp;</option>
-		<option class="level-2" value="1409">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hautes Alpes&nbsp;&nbsp;</option>
-		<option class="level-2" value="1414">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Var&nbsp;&nbsp;</option>
-		<option class="level-2" value="1410">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vaucluse&nbsp;&nbsp;</option>
-		<option class="level-1" value="1425">&nbsp;&nbsp;&nbsp;Rhone Alpes&nbsp;&nbsp;</option>
-		<option class="level-2" value="1433">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ardèche&nbsp;&nbsp;</option>
-		<option class="level-2" value="1432">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Drome&nbsp;&nbsp;</option>
-		<option class="level-2" value="1429">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Haute Savoie&nbsp;&nbsp;</option>
-		<option class="level-2" value="1431">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Isère&nbsp;&nbsp;</option>
-		<option class="level-2" value="1427">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rhone&nbsp;&nbsp;</option>
-		<option class="level-2" value="1430">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Savoie&nbsp;&nbsp;</option>
-	</select>
 
-	<select class="mdb-select" th:field="*{spot.cotation}" th:required="required">
-	  <option value="">Cotation</option>
-	  <option th:value="4a"  th:text="4a"></option>
-	  <option th:value="4b"  th:text="4b"></option>
-	  <option th:value="4c"  th:text="4c"></option>
-	  <option th:value="5a"  th:text="5a"></option>
-	  <option th:value="5b"  th:text="5b"></option>
-	  <option th:value="5c"  th:text="5c"></option>
-	  <option th:value="6a"  th:text="6a"></option>
-	  <option th:value="6b"  th:text="6b"></option>
-	  <option th:value="6c"  th:text="6c"></option>
-	  <option th:value="7a"  th:text="7a"></option>
-	  <option th:value="7b"  th:text="7b"></option>
-	  <option th:value="7c"  th:text="7c"></option>
-	  <option th:value="8a"  th:text="8a"></option>
-	  <option th:value="8b"  th:text="8b"></option>
-	  <option th:value="8c"  th:text="8c"></option>
-	  <option th:value="9a"  th:text="9a"></option>
-	  <option th:value="9b"  th:text="9b"></option>
-	  <option th:value="9c"  th:text="9c"></option>
-	</select>
-    <label for="inputHeight">Hauteur (en mètre)</label>
-   <input type="number"  th:field="*{spot.height}" min="1" max="1000" step="1" th:required="required"/>	
-   
-  <label for="inputHeight">Type d'escalade</label>
-    <select class="mdb-select" th:field="*{spot.climbingType}" th:required="required">
-	    <option value="" disabled selected hidden >-Choisir-</option>
-	    <option th:value="bloc"  th:text="Bloc"></option>
-	    <option th:value="couenne"    th:text="Couenne"></option>
-    </select>
-
-<!-- <select class="mdb-select" th:field="*{spot.holdsType}" th:required="required">
-   <option value="">Type de prise</option>
-   <option th:value="trous"        th:text="trous"></option>
-   <option th:value="Réglettes"    th:text="Réglettes"></option>
-   <option th:value="Colonettes"   th:text="Colonettes"></option>
-   <option th:value="Plats"        th:text="Plats"></option>
-</select> -->
-
-<input type="submit" value="Rechercher"/>
-
-
-
-  <div th:if="${not #lists.isEmpty(filterSpot)}">
-  	<hr>
-	
-            <h5>Résultat:</h5>
-            <table class="table table-striped">
-                <tr>
-                    <th>Nom</th>
-                    <th>Action</th>
-                </tr>
-                <tr th:each="spot: ${filterSpot}">
-                 <td th:text="${spot.name}" >
-                  </td>
-                 <td>
-					<a th:href="@{/afficher-un-spot(name=${spot.name})}"
-					   class="btn btn-info btn-sm">
-						Voir la fiche
-					</a>
-				</td>
-                </tr>
-            </table>
-        </div>
-</form>
+ <div class="row justify-content-md-center">
+    <div class="col-8">
+    <h5>Résultat:</h5>
+    <table class="table table-striped">
+     <tr>
+         <th>Nom</th>
+         <th>Action</th>
+     </tr>
+     <tr th:each="spot: ${filterSpot}">
+      <td th:text="${spot.name}"></td>
+      <td>
+		  <a th:href="@{/afficher-un-spot(name=${spot.name})}"
+		   class="btn btn-info btn-sm">
+			Voir la fiche
+		  </a>
+   		</td>
+     </tr>
+  </table>
+ </div>
+</div>
 </body>
 </html>
 

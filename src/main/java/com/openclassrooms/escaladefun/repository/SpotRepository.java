@@ -28,7 +28,8 @@ public interface SpotRepository extends JpaRepository<Spot, Long> {
     List<SpotByName> getSpotByName( String name );
 
     @Query( "SELECT NEW com.openclassrooms.escaladefun.controller.SpotByName( s.name, l.region, l.departement, s.track_number, s.height, s.cotation, s.climbingType, s.holdsType, s.tracks_pract) FROM Spot s JOIN Localisation  l ON "
-            + "l.id = s.id WHERE l.region =:region and s.cotation=:cotation and s.height=:height and s.climbingType=:climbingType" )
-    List<SpotByName> findSpotByRegionAndCotation( String region, String cotation, Integer height, String climbingType );
+            + "l.id = s.id WHERE l.region =:region and s.cotation=:cotation and s.height=:height and s.climbingType=:climbingType and s.holdsType=:holdsType" )
+    List<SpotByName> findSpotByRegionAndCotation( String region, String cotation, Integer height, String climbingType,
+            String holdsType );
 
 }
