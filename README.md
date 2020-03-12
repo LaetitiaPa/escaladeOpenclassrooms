@@ -28,7 +28,5 @@
 
 - URL localhost:8088
 
-- screen homepage 
-
-![Image description](link-to-image)
+![Page d'accueil Escalade](https://github.com/LaetitiaPa/escaladeOpenclassrooms/blob/master/doc/home-escalade.png)
 
