@@ -1,6 +1,8 @@
-"# Application communautaire autour de l'escalade " 
+
 
 ## Présentation du projet
+
+
 
 ## Pré-requis développement
 
@@ -28,4 +30,5 @@
 
 - screen homepage 
 
+![Image description](link-to-image)
 
