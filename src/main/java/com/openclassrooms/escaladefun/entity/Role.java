@@ -32,8 +32,8 @@ public class Role {
         return role;
     }
 
-    public void setRole( String role ) {
-        this.role = role;
+    public String setRole( String role ) {
+        return this.role = role;
     }
 
 }

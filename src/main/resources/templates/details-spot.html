@@ -17,7 +17,7 @@
 
 	<h3 th:text= "${spotName}" ></h3>
 	<hr>
-		<div th:if="${#request.userPrincipal}">	
+		<div  th:if="${#request.userPrincipal}" >	
 			<a th:href="@{/ajouter-commentaire-spot(name=${spotName})}"class="btn btn-primary btn-sm mb-3">
 				Ajouter un commentaire
 			</a>
@@ -41,7 +41,7 @@
 				<th>Nombre de voies</th>
 				<th>Cotation</th>
 				<th>Officiel de l'escalade</th>
-				<th th:if="*{role.role} == 'ADMIN'">Action</th>
+				<th th:if="${not #lists.isEmpty(role)} and *{role.role} == 'ADMIN'">Action</th>
 				
 			</tr>
 		</thead>
@@ -55,9 +55,7 @@
 				<td th:text="${spot.cotation}" >
 				<td th:text= "non"  th:if="${spot.tag} == false" th:else= "oui">
 				<td >
-			
-	                    
-				</td>
+			    </td>
 		</tbody>		
 	</table>
 	<div  th:if="${not #lists.isEmpty(comments)}">
@@ -67,7 +65,7 @@
 					<th>Date</th>
 					<th>Commentaire</th>
 					<th>Auteur</th>
-					<th th:if="*{role.role} == 'ADMIN'">Action</th>
+					<th th:if="${not #lists.isEmpty(role)} and *{role.role} == 'ADMIN'">Action</th>
 					</tr>
 			     	</thead>
 					<tbody>
@@ -78,31 +76,23 @@
 						
 						<td>
 					
-						 <form th:action="@{/commentaire/{id}(id=${comment.id})}" th:if="*{role.role} == 'ADMIN'" th:object="${comment}" method="post">
+						 <form th:action="@{/commentaire/{id}(id=${comment.id})}" th:if="${not #lists.isEmpty(role)} and *{role.role} == 'ADMIN'" method="post">
 	                      <button type="submit" class = "btn btn-primary btn-sm" >Modifier</button>
 	                     </form>
 
-						 <form th:action="@{/supprimer-commentaire/{id}(id=${comment.id})}" method="post" th:if="*{role.role} == 'ADMIN'" th:object="${comment}" >
+						 <form th:action="@{/supprimer-commentaire/{id}(id=${comment.id})}" method="post" th:if="${not #lists.isEmpty(role)} and *{role.role} == 'ADMIN'" th:object="${comment}" >
 	                      <button type="submit" class = "btn btn-danger btn-sm" >Supprimer</button>
 	                     </form>
-
 		                </td>
-		                
-		           
-	    
-					
-					 
-			 	 </tbody>		
-			</table>
-	</div>
-		<span th:text="${successMessage}"></span>
-	<div th:if="${ #lists.isEmpty(comments)}">
-  		Ce spot n'a pas encore de commentaire, soyez le premier à en laisser un !
-	</div>
-
- </div>
-
-</body>
+			 	 	</tbody>		
+				</table>
+			</div>
+			<span th:text="${successMessage}"></span>
+			<div th:if="${ #lists.isEmpty(comments)}">
+		  		Ce spot n'a pas encore de commentaire, soyez le premier à en laisser un !
+			</div>
+ 		</div>
+	</body>
 </html>
 
 

@@ -41,11 +41,11 @@
 		
 		<tbody>
 			<tr th:each="topo : ${AllTopos}"
-      		 th:if="${topo.availability} == true">
+      		 th:if="${topo.availability}">
 				<td th:text="${topo.title}" />	
 				<td th:text="${topo.region}" />	
 				<td th:text="${topo.description}"/>
-				<td ><!-- th:if="${currentUser.id} != ${topo.user.id}" -->
+				<td >
 					<a th:href="@{/topo/{id}(id=${topo.id})}"
 					   class="btn btn-info btn-sm">
 						Réserver

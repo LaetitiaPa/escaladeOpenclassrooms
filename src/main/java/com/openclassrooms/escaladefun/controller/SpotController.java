@@ -123,13 +123,15 @@ public class SpotController implements WebMvcConfigurer {
 
     @GetMapping( value = "/afficher-un-spot{name}" )
     public ModelAndView displaySpot( @RequestParam( "name" ) String name, @PathVariable( "name" ) String namePath,
-            Model model ) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userServiceImpl.findUserByEmail( auth.getName() );
+            Model model, HttpSession httpSession ) {
+        ModelAndView modelAndView = new ModelAndView();
 
-        model.addAttribute( "currentUser", user );
-
-        model.addAttribute( "role", user.getRole() );
+        if ( httpSession.getAttribute( "loggedUser" ) != null ) {
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            User user = userServiceImpl.findUserByEmail( auth.getName() );
+            model.addAttribute( "currentUser", user );
+            model.addAttribute( "role", user.getRole() );
+        }
 
         model.addAttribute( "singleSpot", spotRepository.getSpotByName( name ) );
         Spot spot = spotRepository.findByName( name );
@@ -137,12 +139,13 @@ public class SpotController implements WebMvcConfigurer {
         model.addAttribute( "spotName", spotName );
         Long spotId = spot.getId();
         model.addAttribute( "comments", commentRepository.findAllBySpotId( spotId ) );
-        ModelAndView modelAndView = new ModelAndView();
+
         modelAndView.setViewName( "details-spot" );
 
         log.info( "Le spot " + spot.getName() + "est affiché" );
 
         return modelAndView;
+
     }
 
     @RequestMapping( value = "/ajouter-commentaire-spot{name}", method = RequestMethod.GET )

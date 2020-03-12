@@ -65,11 +65,13 @@
   	 </div>
  </nav>
  
- <h3 th:if="*{role.role} == 'ADMIN'" th:text= "${role.role}">Mon espace</h3>
+ <h3 th:if="*{role.role} == 'ADMIN'" th:text= "${role.role}"></h3>
+ <h3 th:if="*{role.role} == 'USER'">Mon espace</h3>
 	<hr>
 	<div class="row justify-content-md-center">
     <div class="col-8">
     <h4 th:if="*{role.role} == 'ADMIN'" th:text= "Spots" >Mes topos</h4>
+    <h4 th:if="*{role.role} == 'USER'" >Mes topos</h4>
 	<table class="table table-bordered table-striped"  th:if="*{role.role} == 'USER'">
 		<thead class="thead-dark">
 			<tr>
@@ -157,7 +159,7 @@
 				<td th:text="${topo.title}" />	
 				<td th:text="${topo.region}" />	
 				<td th:text="${topo.description}"/>
-				<td th:text="${topo.resa.}"/>
+				<td th:text="${topo.resa.user.name}"/>
 				<td>
 				<a th:href="@{/reservation(id=${topo.resa.id})}" 
 				   class="btn btn-info btn-sm">
