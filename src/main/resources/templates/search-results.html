@@ -2,36 +2,41 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   <!-- Required meta tags -->
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+   <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-	<title>Résultat recherche Spot</title>
+  <!-- Custom fonts for this template -->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+  <!-- Custom styles for this template -->
+  <link href="css/landing-page.min.css" rel="stylesheet">
+  
+  <title>Résultat recherche Spot</title>
 </head>
 
 <body>
-
-
- <div class="row justify-content-md-center">
-    <div class="col-8">
-    <h5>Résultat:</h5>
-    <table class="table table-striped">
-     <tr>
-         <th>Nom</th>
-         <th>Action</th>
-     </tr>
-     <tr th:each="spot: ${filterSpot}">
-      <td th:text="${spot.name}"></td>
-      <td>
-		  <a th:href="@{/afficher-un-spot(name=${spot.name})}"
-		   class="btn btn-info btn-sm">
-			Voir la fiche
-		  </a>
-   		</td>
-     </tr>
+<div th:include="navbar.html"></div>
+<div class="row justify-content-md-center">
+  <div class="col-8">
+  <h5>Résultat:</h5>
+  <table class="table table-striped">
+   <tr>
+     <th>Nom</th>
+     <th>Action</th>
+   </tr>
+   <tr th:each="spot: ${filterSpot}">
+    <td th:text="${spot.name}"></td>
+    <td>
+	 <a th:href="@{/afficher-un-spot(name=${spot.name})}"class="btn btn-info btn-sm">Voir la fiche
+	 </a>
+   </td>
+   </tr>
   </table>
  </div>
 </div>

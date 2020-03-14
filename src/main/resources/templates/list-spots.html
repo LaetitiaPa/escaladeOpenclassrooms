@@ -2,58 +2,58 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+	<!-- Bootstrap core CSS -->
+	<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	
+	 <!-- Custom fonts for this template -->
+	<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+	<link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+	
+	<!-- Custom styles for this template -->
+	<link href="css/landing-page.min.css" rel="stylesheet">
+	
 	<title>Espace Membre</title>
+
 </head>
-
 <body>
-
+<div th:include="navbar.html"></div>
 <div class="container">
-
+	
 	<h3>Tous nos sites d'escalades</h3>
+	
 	<hr>
 	
-	<!--Add condition to redirect to index page if not connected-->
-	<a th:href="@{/home}"
-		class="btn btn-primary btn-sm mb-3">
-		Revenir à l'accueil
-	</a>
 	<div th:if="${#request.userPrincipal}">	
-		<a th:href="@{/ajouter-un-spot}"
-			class="btn btn-primary btn-sm mb-3">
-			Ajouter un spot
-		</a>
+		<a th:href="@{/ajouter-un-spot}"class="btn btn-primary btn-sm mb-3">Ajouter un spot</a>
 	</div>
 	
 	<table class="table table-bordered table-striped">
 		<thead class="thead-dark">
-			<tr>
-				<th>Nom</th>
-				<th>Region</th>
-				<th>Action</th>
-			</tr>
+		<tr>
+			<th>Nom</th>
+			<th>Region</th>
+			<th>Action</th>
+		</tr>
 		</thead>
-		
 		<tbody>
 			<tr th:each="spot : ${AllSpots}">
 				<td th:text="${spot.name}">
 				<td th:text="${spot.region}">
 				<td>
-					<a th:href="@{/afficher-un-spot(name=${spot.name})}"
-					   class="btn btn-info btn-sm">
-						Afficher
-					</a>
-				</td>
+					<a th:href="@{/afficher-un-spot(name=${spot.name})}"class="btn btn-info btn-sm">Afficher</a>
+		  		</td>
 		</tbody>		
 	</table>
 </div>
-
+<!-- Footer -->
+<div th:include="footer.html"></div>
 </body>
 </html>
 

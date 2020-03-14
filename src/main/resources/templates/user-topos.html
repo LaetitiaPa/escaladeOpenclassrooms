@@ -26,29 +26,28 @@
 </head>
 
 <body>
-  <!-- Navigation -->
-  <nav class="navbar navbar-light bg-light static-top">
+ <!-- Navigation -->
+  <nav class="navbar navbar-dark bg-dark static-top">
     <div class="container">
-      <a class="navbar-brand" th:href="@{/}">Les Amis de l'Escalade</a>
+      <a class="navbar-brand" th:href="@{/home}">Les Amis de l'Escalade</a>
       <ul class="navbar-nav ml-left">
           <li class="nav-item active">
-            <a class="nav-link" th:href="@{/spots}">Spots
+              <a class="nav-link" th:href="@{/dashboard}">Mes Topos
               <span class="sr-only">(current)</span>
             </a>
           </li>
           </ul>
-           <ul class="navbar-nav ml-left">
-           
-          <li class="nav-item active">
 
-            <a class="nav-link" th:href="@{/topos}">Topos
-            </a>
-          </li>
-        
-          </ul>
           <ul class="navbar-nav ml-left">
           <li class="nav-item active">
-            <a class="nav-link" th:href="@{/rechercher-spot}" >Trouver un Spot
+            <a class="nav-link" th:href="@{/ajouter-un-topo}">Ajouter un topo
+            </a>
+          </li>
+          </ul>
+          
+          <ul class="navbar-nav ml-left">
+          <li class="nav-item active">
+            <a class="nav-link" th:href="@{/demande-emprunt-topo}">Mes demandes d'emprunt
             </a>
           </li>
           </ul>
@@ -62,8 +61,8 @@
       			<input hidden type="submit" value="Se déconnecter"/>
    			</form> 
 		  </div>
-   </div> 
-  </div>
+   		</div> 
+  	 </div>
  </nav>
  
  <h3>Mon espace</h3>

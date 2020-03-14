@@ -1,0 +1,53 @@
+<!-- Navigation -->
+  <meta charset="utf-8">
+
+  
+  <nav class="navbar navbar-light bg-light navbar-fixed-top" >
+    <div class="container">
+      <a class="navbar-brand" href="/home">Les Amis de l'Escalade</a>
+      <ul class="navbar-nav ml-left">
+          <li class="nav-item active">
+            <a class="nav-link" th:href="@{/spots}">Spots
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          </ul>
+           <ul class="navbar-nav ml-left">
+           
+          <li class="nav-item active">
+
+            <a class="nav-link" th:href="@{/topos}">Topos
+            </a>
+          </li>
+        
+          </ul>
+          <ul class="navbar-nav ml-left">
+          <li class="nav-item active">
+            <a class="nav-link" th:href="@{/rechercher-spot}" >Trouver un Spot
+            </a>
+          </li>
+          </ul>
+      
+     	<div class="btn-group" th:if="${userName != null}">
+		  <button type="button" th:text="${userName}" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		  </button>
+		  <div class="dropdown-menu">
+		    <a class="dropdown-item" th:href="@{/dashboard}">Mon espace</a>
+		    <a class="dropdown-item" th:href="@{/logout}"> Se déconnecter</a>
+		    <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
+      			<input hidden type="submit" value="Se déconnecter"/>
+   			</form> 
+		  </div>
+		  <div class="btn-group" th:if="${userName == null}">
+		  <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		   Se connecter
+		  </button>
+		  <div class="dropdown-menu">
+		    <a class="dropdown-item" th:href="@{/login}">Se connecter</a>
+		    <a class="dropdown-item"  th:href="@{/registration}">S'inscrire</a>
+		  </div>
+    </div>
+    
+    </div> 
+  </div>
+ </nav>

@@ -6,59 +6,59 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+      <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-	<title>Espace Membre</title>
+  <!-- Custom fonts for this template -->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+  <!-- Custom styles for this template -->
+  <link href="css/landing-page.min.css" rel="stylesheet">
+  
+ <title>Espace Membre</title>
 </head>
 
 <body>
+<div th:include="navbar.html"></div>
 <div class="container">
-
 	<h3 th:text= "${spotName}" ></h3>
 	<hr>
+	
+       <a th:href="@{/spots}" class="btn btn-primary btn-sm mb-3">
+		Retourner à la liste des spots
+       </a>
+	   <table class="table table-bordered table-striped">
+	   <thead class="thead-dark">
+		<tr>
+			<th>Site</th>
+			<th>Region</th>
+			<th>Departement</th>
+			<th>Nombre de voies</th>
+			<th>Cotation</th>
+			<th>Officiel de l'escalade</th>
+			<th th:if="${not #lists.isEmpty(role)} and *{role.role} == 'ADMIN'">Action</th>	
+		</tr>
+		</thead>
+		<tbody>
+		<tr th:each= "spot: ${singleSpot}">
+			<td th:text= "${spot.name}">
+			<td th:text= "${spot.region}">
+			<td th:text= "${spot.departement}">
+			<td th:text= "${spot.track_number}">
+			<td th:text="${spot.cotation}" >
+			<td th:text= "non"  th:if="${spot.tag} == false" th:else= "oui">
+			<td >
+		    </td>
+		</tbody>		
+	</table>
+	<div  th:if="${not #lists.isEmpty(comments)}">
 		<div  th:if="${#request.userPrincipal}" >	
 			<a th:href="@{/ajouter-commentaire-spot(name=${spotName})}"class="btn btn-primary btn-sm mb-3">
 				Ajouter un commentaire
 			</a>
 		</div>
-		
-		<a th:href="@{/}"class="btn btn-primary btn-sm mb-3">
-			Revenir à l'accueil
-	   </a>
-	   
-       <a th:href="@{/spots}" class="btn btn-primary btn-sm mb-3">
-		Retourner à la liste des spots
-       </a>
-
-  
-	<table class="table table-bordered table-striped">
-		<thead class="thead-dark">
-			<tr>
-				<th>Site</th>
-				<th>Region</th>
-				<th>Departement</th>
-				<th>Nombre de voies</th>
-				<th>Cotation</th>
-				<th>Officiel de l'escalade</th>
-				<th th:if="${not #lists.isEmpty(role)} and *{role.role} == 'ADMIN'">Action</th>
-				
-			</tr>
-		</thead>
-		
-		<tbody>
-			<tr th:each= "spot: ${singleSpot}">
-				<td th:text= "${spot.name}">
-				<td th:text= "${spot.region}">
-				<td th:text= "${spot.departement}">
-				<td th:text= "${spot.track_number}">
-				<td th:text="${spot.cotation}" >
-				<td th:text= "non"  th:if="${spot.tag} == false" th:else= "oui">
-				<td >
-			    </td>
-		</tbody>		
-	</table>
-	<div  th:if="${not #lists.isEmpty(comments)}">
 	 	 <table  class="table table-bordered table-striped">
 			       <thead class="thead-white">
 					<tr>
@@ -69,17 +69,14 @@
 					</tr>
 			     	</thead>
 					<tbody>
-						<tr th:each= "comment: ${comments}">
+					<tr th:each= "comment: ${comments}">
 						<td th:text= "${comment.date} ">
 						<td th:text= "${comment.comments}">
 						<td th:text= "${comment.user?.name}">
-						
 						<td>
-					
 						 <form th:action="@{/commentaire/{id}(id=${comment.id})}" th:if="${not #lists.isEmpty(role)} and *{role.role} == 'ADMIN'" method="post">
 	                      <button type="submit" class = "btn btn-primary btn-sm" >Modifier</button>
 	                     </form>
-
 						 <form th:action="@{/supprimer-commentaire/{id}(id=${comment.id})}" method="post" th:if="${not #lists.isEmpty(role)} and *{role.role} == 'ADMIN'" th:object="${comment}" >
 	                      <button type="submit" class = "btn btn-danger btn-sm" >Supprimer</button>
 	                     </form>
@@ -92,6 +89,8 @@
 		  		Ce spot n'a pas encore de commentaire, soyez le premier à en laisser un !
 			</div>
  		</div>
+ 		<!-- Footer -->
+  		<div th:include="footer.html"></div>
 	</body>
 </html>
 

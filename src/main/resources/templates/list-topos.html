@@ -5,25 +5,28 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom fonts for this template -->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
 	<title>Les Amis de l'Escalade - Topos</title>
 </head>
 
 <body>
-
-<div class="container">
+  <div th:include="navbar.html">
+  </div>
+<div class="container ">
 	<h3 >Topos disponibles</h3>
 
 	<hr>
 
-	<a th:href="@{/home}"
-		class="btn btn-primary btn-sm mb-3">
-		Revenir à l'accueil
-	</a>
-	
 	<a th:href="@{/ajouter-un-topo}"
 		class="btn btn-primary btn-sm mb-3">
 		Ajouter un topo
@@ -55,6 +58,8 @@
 		</tbody>		
 	</table>
  </div>
+ <!-- Footer -->
+<div th:include="footer.html"></div>
 </body>
 </html>
 
