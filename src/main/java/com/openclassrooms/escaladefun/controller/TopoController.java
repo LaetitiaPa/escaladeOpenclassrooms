@@ -65,9 +65,8 @@ public class TopoController implements WebMvcConfigurer {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userServiceImpl.findUserByEmail( auth.getName() );
         model.addAttribute( "AllResa", topoRepository.findTopoByReservation( user.getId() ) );
-
+        model.addAttribute( "TopoByUser", topoRepository.findTopoByUserId( user.getId() ) );
         model.addAttribute( "currentUser", user );
-
         model.addAttribute( "role", user.getRole() );
 
         modelAndView.setViewName( "user-dashboard" );

@@ -16,7 +16,7 @@ public interface SpotRepository extends JpaRepository<Spot, Long> {
     List<Spot> findByCotation( String cotation );
 
     @Query( "SELECT NEW com.openclassrooms.escaladefun.controller.SpotByRegion( s.name, l.region, s.tag, s.id ) FROM Spot  s JOIN Localisation  l ON "
-            + "l.id = s.id" )
+            + "l.spot = s.id" )
     List<SpotByRegion> getSpots();
 
     Spot findByName( String name );
@@ -24,7 +24,7 @@ public interface SpotRepository extends JpaRepository<Spot, Long> {
     List<Spot> findByNameIs( String name );
 
     @Query( "SELECT NEW com.openclassrooms.escaladefun.controller.SpotByName( s.name, l.region, l.departement, s.track_number, s.height, s.cotation, s.climbingType, s.holdsType, s.tracks_pract) FROM Spot s JOIN Localisation  l ON "
-            + "l.id = s.id WHERE s.name =:name" )
+            + "l.spot = s.id WHERE s.name =:name" )
     List<SpotByName> getSpotByName( String name );
 
     @Query( "SELECT NEW com.openclassrooms.escaladefun.controller.SpotByName( s.name, l.region, l.departement, s.track_number, s.height, s.cotation, s.climbingType, s.holdsType, s.tracks_pract) FROM Spot s JOIN Localisation  l ON "

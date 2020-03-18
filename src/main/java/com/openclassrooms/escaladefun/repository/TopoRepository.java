@@ -16,6 +16,8 @@ public interface TopoRepository extends JpaRepository<Topo, Long> {
 
     Topo findTopoById( Long id );
 
+    List<Topo> findTopoByUserId( Long id );
+
     @Query( "SELECT NEW com.openclassrooms.escaladefun.controller.TopoByReservation( r.date, r.status, t.title, t.description, t.region, t.availability ) FROM Topo t JOIN Reservation  r ON "
             + "r.topo.id = t.id WHERE r.user.id=:Id" )
     List<TopoByReservation> findTopoByReservation( Long Id );

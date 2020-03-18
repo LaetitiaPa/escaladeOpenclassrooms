@@ -70,119 +70,128 @@
 	<hr>
 	<div class="row justify-content-md-center">
     <div class="col-8">
-    <h4 th:if="*{role.role} == 'ADMIN'" th:text= "Spots" >Mes topos</h4>
-    <h4 th:if="*{role.role} == 'USER'" >Mes topos</h4>
-	<table class="table table-bordered table-striped"  th:if="*{role.role} == 'USER'">
-		<thead class="thead-dark">
-			<tr>
-				<th>Titre</th>
-				<th>Région</th>
-				<th>Description</th>
-				<th>Statut</th>
-				<th>Action</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="topo : ${AllTopos}"  th:if="${topo.user.id} == ${currentUser.id}" >
-				<td th:text="${topo.title}" />	
-				<td th:text="${topo.region}" />	
-				<td th:text="${topo.description}" />
-				<td>
-				<div th:switch="${topo.availability}"> 
-				  <p th:case= false >Indisponible</p>
-				  <p th:case= true>Disponible</p>
-			    </div>
-				<td>
-		
-				<a th:href="@{/}"
-				   class="btn btn-info btn-sm">
-					Modifier
-				</a>
-				<a th:href="@{/}"
-				   class="btn btn-danger btn-sm">
-					Supprimer
-				</a>
-				</td>
-			</tr>
-		</tbody>		
-	  </table>
+    <h4 th:if="*{role.role} == 'ADMIN'" th:text= "Spots"></h4>
+    <h4 th:if="*{role.role} == 'USER' and ${!#lists.isEmpty(TopoByUser)}" >Mes topos</h4>
 
-	  	<table class="table table-bordered table-striped"  th:if="*{role.role} == 'ADMIN'">
-		<thead class="thead-dark">
-			<tr>
-				<th>Nom</th>
-				<th>Région</th>
-				<th>Officiel Les amis de l'escalade</th>
-				<th>Action</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="spot : ${AllSpots}"  >
-				<td th:text="${spot.name}" />	
-				<td th:text="${spot.region}"/>
-				<td>
-				<div th:switch="${spot.tag}"> 
-				  <p th:case= false >Non</p>
-				  <p th:case= true>Oui</p>
-			    </div>
-				<td>
-				<a th:href="@{/afficher-un-spot(name=${spot.name})}" 
-				   class="btn btn-info btn-sm">
-					Voir
-				</a>
-				 <form th:action="@{/spot/{id}(id=${spot.id})}" th:if="*{role.role} == 'ADMIN'" th:object="${spot}" method="get">
-	             	<button type="submit" class = "btn btn-primary btn-sm" >Modifier</button>
-	             </form>
-				<a th:href="@{/}"
-				   class="btn btn-danger btn-sm">
-					Supprimer
-				</a>
-				</td>
-			</tr>
-		</tbody>		
-	  </table>
-	</div>
-    <div class="col-5">
-    <h4 th:if="*{role.role} == 'USER'">Topos réservés</h4>
-	<table class="table table-bordered table-striped" th:if="*{role.role} == 'USER'" >
-		<thead class="thead-dark">
-			<tr>
-				<th>Titre</th>
-				<th>Région</th>
-				<th>Description</th>
-				<th>Demandeur</th>
-				<th>Action</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="topo : ${AllTopos}" th:if="${topo.user.id} == ${currentUser.id} and ${topo.availability} == false and ${topo.resa.status} == false" >
-				<td th:text="${topo.title}" />	
-				<td th:text="${topo.region}" />	
-				<td th:text="${topo.description}"/>
-				<td th:text="${topo.resa.user.name}"/>
-				<td>
-				<a th:href="@{/reservation(id=${topo.resa.id})}" 
-				   class="btn btn-info btn-sm">
-					Accepter
-				</a>
-				<a th:href="@{/refus-reservation/topo{id}(id=${topo.id})}"
-				   class="btn btn-danger btn-sm">
-					Refuser
-				</a>
-				</td>
-			</tr>
-		</tbody>		
-	</table>
-	
-  </div>
+	<table class="table table-bordered table-striped" th:if="*{role.role} == 'USER' and ${!#lists.isEmpty(TopoByUser)}">
+	<thead class="thead-dark">
+		<tr>
+			<th>Titre</th>
+			<th>Région</th>
+			<th>Description</th>
+			<th>Statut</th>
+			<th>Action</th>
+		</tr>
+   </thead>
+   <tbody>
+   <tr th:each="topo : ${AllTopos}"  th:if="${topo.user.id} == ${currentUser.id}" >
+	<td th:text="${topo.title}" />	
+	<td th:text="${topo.region}" />	
+	<td th:text="${topo.description}" />
+	<td>
+	<div th:switch="${topo.availability}"> 
+	  <p th:case= false >Indisponible</p>
+	  <p th:case= true>Disponible</p>
+    </div>
+	<td>
+	<a th:href="@{/}"
+	   class="btn btn-info btn-sm">
+		Modifier
+	</a>
+	<a th:href="@{/}"
+	   class="btn btn-danger btn-sm">
+		Supprimer
+	</a>
+ </td>
+</tr>
+</tbody>
+</table>
 </div>
+<div th:if="${#lists.isEmpty(AllTopos)}">
+   <span style="color:red" > Vous n'avez pas encore ajouté de topo</span> 
+</div>  
+</div>
+<div class="row justify-content-md-center">
+<div class="col-8">
+<table class="table table-bordered table-striped"  th:if="*{role.role} == 'ADMIN'">
+<thead class="thead-dark">
+ <tr>
+	<th>Nom</th>
+	<th>Région</th>
+	<th>Officiel Les amis de l'escalade</th>
+	<th>Action</th>
+ </tr>
+</thead>
+<tbody>
+<tr th:each="spot : ${AllSpots}"  >
+	<td th:text="${spot.name}" />	
+	<td th:text="${spot.region}"/>
+	<td>
+	<div th:switch="${spot.tag}"> 
+	  <p th:case= false >Non</p>
+	  <p th:case= true>Oui</p>
+	   </div>
+	<td>
+	<a th:href="@{/afficher-un-spot(name=${spot.name})}" 
+	   class="btn btn-info btn-sm">
+		Voir
+	</a>
+	 <form th:action="@{/spot/{id}(id=${spot.id})}" th:if="*{role.role} == 'ADMIN'" th:object="${spot}" method="get">
+	          	<button type="submit" class = "btn btn-primary btn-sm" >Modifier</button>
+	          </form>
+	<a th:href="@{/}"
+	   class="btn btn-danger btn-sm">
+		Supprimer
+	</a>
+  </td>
+ </tr>
+</tbody>		
+</table>
+</div>
+
+<div class="col-6">
+<h4 th:if="*{role.role} == 'USER'">Topos réservés</h4>
+ <table class="table table-bordered table-striped" th:if="*{role.role} == 'USER'" >
+ <thead class="thead-dark">
+	<tr>
+		<th>Titre</th>
+		<th>Région</th>
+		<th>Description</th>
+		<th>Demandeur</th>
+		<th>Action</th>
+	</tr>
+</thead>
+<tbody>
+ 	<tr th:each="topo : ${AllTopos}" th:if="${topo.user.id} == ${currentUser.id} and ${topo.availability} == false and ${topo.resa.status} == false" >
+		<td th:text="${topo.title}" />	
+		<td th:text="${topo.region}" />	
+		<td th:text="${topo.description}"/>
+		<td th:text="${topo.resa.user.name}"/>
+		<td>
+		<a th:href="@{/reservation(id=${topo.resa.id})}" 
+		   class="btn btn-info btn-sm">
+			Accepter
+		</a>
+		<a th:href="@{/refus-reservation/topo{id}(id=${topo.id})}"
+		   class="btn btn-danger btn-sm">
+			Refuser
+		</a>
+		</td>
+	</tr>
+</tbody>
+</table>
+<div th:if="${#lists.isEmpty(AllResa)} and *{role.role} == 'USER'">
+   <span style="color:red"> Vous n'avez pas encore réservé de topo</span> 
+</div>
+</div>
+</div>
+
+
 <!-- Footer -->
 <div th:include="footer.html"></div>
  <!-- Bootstrap core JavaScript -->
  <script src="vendor/jquery/jquery.min.js"></script>
  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
 </body>
-
 </html>
 

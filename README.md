@@ -8,21 +8,32 @@
 
 - Java 8
 - Maven 3xxx
-- SpringBoot (Embeded Tomcat version xxx)
-- DataBase MySQL
+- SpringBoot (Embeded Tomcat version 2.1.0)
+- Base de données MySQL 
 
 ## Build
 
-- Maven (mvn compile, mvn package)
+- Maven
+
+	mvn compile
+	mvn package
 
 ## Paramétrage
 
-- Application.propreties (server.port = 8088, url bdd, user + mdp)
+application-prod.properties:
+- server.port = 8088
+- datasource url = jdbc:mysql://localhost:3306/amisescalade
+- username = root
+- password = 123
 
-## Run Application
+## Démarrage de l'application
 
-- Mode dev (mvn spring-boot:run)
-- Mode Prod (cd target - java -jar - escladefun.SNAPSHOT.jar)
+Utiliser les commandes suivantes:
+
+- Mode dev:
+		mvn spring-boot:run
+- Mode Prod:
+		cd target - java -jar - escladefun.SNAPSHOT.jar
 
 ## Utiliser l'applcation WEB
 

@@ -1,0 +1,10 @@
+2020-03-15 17:17:54,131 INFO com.openclassrooms.escaladefun.EscladeFunApplication [restartedMain] Démarrage application *** Escalade Fun
+2020-03-15 17:17:54,256 INFO com.openclassrooms.escaladefun.EscladeFunApplication [restartedMain] Starting EscladeFunApplication on DESKTOP-83PN549 with PID 52840 (started by lpape in C:\Users\lpape\Desktop\Formation DA Java\P6\escaladeOpenclassrooms)
+2020-03-15 17:17:54,258 DEBUG com.openclassrooms.escaladefun.EscladeFunApplication [restartedMain] Running with Spring Boot v2.1.0.RELEASE, Spring v5.1.2.RELEASE
+2020-03-15 17:17:54,258 INFO com.openclassrooms.escaladefun.EscladeFunApplication [restartedMain] The following profiles are active: prod
+2020-03-15 17:17:59,109 INFO com.openclassrooms.escaladefun.EscladeFunApplication [restartedMain] Started EscladeFunApplication in 4.955 seconds (JVM running for 68758.206)
+2020-03-15 17:18:02,988 INFO com.openclassrooms.escaladefun.EscladeFunApplication [restartedMain] Démarrage application *** Escalade Fun
+2020-03-15 17:18:03,056 INFO com.openclassrooms.escaladefun.EscladeFunApplication [restartedMain] Starting EscladeFunApplication on DESKTOP-83PN549 with PID 52840 (started by lpape in C:\Users\lpape\Desktop\Formation DA Java\P6\escaladeOpenclassrooms)
+2020-03-15 17:18:03,056 DEBUG com.openclassrooms.escaladefun.EscladeFunApplication [restartedMain] Running with Spring Boot v2.1.0.RELEASE, Spring v5.1.2.RELEASE
+2020-03-15 17:18:03,061 INFO com.openclassrooms.escaladefun.EscladeFunApplication [restartedMain] The following profiles are active: prod
+2020-03-15 17:18:06,582 INFO com.openclassrooms.escaladefun.EscladeFunApplication [restartedMain] Started EscladeFunApplication in 3.586 seconds (JVM running for 68765.68)

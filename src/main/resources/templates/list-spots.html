@@ -23,8 +23,8 @@
 
 </head>
 <body>
-<div th:include="navbar.html"></div>
-<div class="container">
+	<div th:include="navbar.html"> </div>
+	<div class="container">
 	
 	<h3>Tous nos sites d'escalades</h3>
 	
@@ -48,12 +48,12 @@
 				<td th:text="${spot.region}">
 				<td>
 					<a th:href="@{/afficher-un-spot(name=${spot.name})}"class="btn btn-info btn-sm">Afficher</a>
-		  		</td>
+		  	    </td>
 		</tbody>		
 	</table>
-</div>
-<!-- Footer -->
-<div th:include="footer.html"></div>
+  </div>
+  <!-- Footer -->
+  <div th:include="footer.html"></div>
 </body>
 </html>
 

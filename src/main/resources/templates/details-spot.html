@@ -53,45 +53,56 @@
 		    </td>
 		</tbody>		
 	</table>
-	<div  th:if="${not #lists.isEmpty(comments)}">
-		<div  th:if="${#request.userPrincipal}" >	
-			<a th:href="@{/ajouter-commentaire-spot(name=${spotName})}"class="btn btn-primary btn-sm mb-3">
-				Ajouter un commentaire
-			</a>
+
+
+	 	<table  class="table table-bordered table-striped">
+		<thead class="thead-white">
+		<tr>
+			<th>Date</th>
+			<th>Commentaire</th>
+			<th>Auteur</th>
+			<th th:if="${not #lists.isEmpty(role)} and *{role.role} == 'ADMIN'">Action</th>
+		</tr>
+     	</thead>
+		<tbody>
+		<tr th:each= "comment: ${comments}">
+			<td th:text= "${comment.date} ">
+			<td th:text= "${comment.comments}">
+			<td th:text= "${comment.user?.name}">
+			<td>
+			 <form th:action="@{/commentaire/{id}(id=${comment.id})}" th:if="${not #lists.isEmpty(role)} and *{role.role} == 'ADMIN'" method="get">
+                <button type="submit" class = "btn btn-primary btn-sm" >Modifier</button>
+             </form>
+			 <form th:action="@{/supprimer-commentaire/{id}(id=${comment.id})}" method="post" th:if="${not #lists.isEmpty(role)} and *{role.role} == 'ADMIN'" th:object="${comment}" >
+	            <button type="submit" class = "btn btn-danger btn-sm" >Supprimer</button>
+	            </form>
+	         </td>
+		</tbody>		
+		</table>
+		<div class="panel-heading" th:if="${#request.userPrincipal}" >
+		<div th:if="${ #lists.isEmpty(comments)}"> 
+			<span style="color:red" >Ce spot n'a pas encore de commentaire, soyez le premier à en laisser un !</span> 
 		</div>
-	 	 <table  class="table table-bordered table-striped">
-			       <thead class="thead-white">
-					<tr>
-					<th>Date</th>
-					<th>Commentaire</th>
-					<th>Auteur</th>
-					<th th:if="${not #lists.isEmpty(role)} and *{role.role} == 'ADMIN'">Action</th>
-					</tr>
-			     	</thead>
-					<tbody>
-					<tr th:each= "comment: ${comments}">
-						<td th:text= "${comment.date} ">
-						<td th:text= "${comment.comments}">
-						<td th:text= "${comment.user?.name}">
-						<td>
-						 <form th:action="@{/commentaire/{id}(id=${comment.id})}" th:if="${not #lists.isEmpty(role)} and *{role.role} == 'ADMIN'" method="post">
-	                      <button type="submit" class = "btn btn-primary btn-sm" >Modifier</button>
-	                     </form>
-						 <form th:action="@{/supprimer-commentaire/{id}(id=${comment.id})}" method="post" th:if="${not #lists.isEmpty(role)} and *{role.role} == 'ADMIN'" th:object="${comment}" >
-	                      <button type="submit" class = "btn btn-danger btn-sm" >Supprimer</button>
-	                     </form>
-		                </td>
-			 	 	</tbody>		
-				</table>
-			</div>
-			<span th:text="${successMessage}"></span>
-			<div th:if="${ #lists.isEmpty(comments)}">
-		  		Ce spot n'a pas encore de commentaire, soyez le premier à en laisser un !
-			</div>
- 		</div>
- 		<!-- Footer -->
-  		<div th:include="footer.html"></div>
-	</body>
+		<span style="color:green" th:text="${successMessage}"></span>
+		<hr>
+          <span>Commentaire</span>
+       </div>
+       <div class="panel-body"th:if="${#request.userPrincipal}">
+       <form name='comment'  th:action="@{/afficher-un-spot{name}(name=${spotName})}" class="form-comments"enctype="utf8" method="post">
+           <textarea class="form-control" th:required="required"  th:field="*{comment.comments}" placeholder="ajouter un commentaire..." rows="3"></textarea>
+           <br>
+           	
+           <button class="btn btn-info pull-right">Enregistrer</button>
+           <div class="clearfix"></div>
+       </form>
+       </div>
+     
+      </div>  
+
+
+   <!-- Footer -->
+	  <div th:include="footer.html"></div>
+		</body>
 </html>
 
 

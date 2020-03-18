@@ -1,7 +1,6 @@
 package com.openclassrooms.escaladefun.controller;
 
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -94,9 +93,9 @@ public class SpotController implements WebMvcConfigurer {
 
             User user = (User) httpSession.getAttribute( "loggedUser" );
             spot.setUser( user );
+            local.setSpot( spotExists );
             localServiceImpl.saveLocal( local );
             spotServiceImpl.saveSpot( spot );
-
             modelAndView.addObject( "successMessage", "Votre site d'escalade a bien été enregistré" );
             modelAndView.addObject( "spot", new Spot() );
             modelAndView.addObject( "local", new Localisation() );
@@ -137,13 +136,40 @@ public class SpotController implements WebMvcConfigurer {
         Spot spot = spotRepository.findByName( name );
         String spotName = spot.getName();
         model.addAttribute( "spotName", spotName );
+        model.addAttribute( "spot", spot );
         Long spotId = spot.getId();
         model.addAttribute( "comments", commentRepository.findAllBySpotId( spotId ) );
-
+        modelAndView.addObject( "comment", new Comment() );
         modelAndView.setViewName( "details-spot" );
 
         log.info( "Le spot " + spot.getName() + "est affiché" );
 
+        return modelAndView;
+
+    }
+
+    @PostMapping( value = "/afficher-un-spot{name}" )
+    public ModelAndView saveComment( @PathVariable( "name" ) String name, @ModelAttribute( "comment" ) Comment comment,
+            BindingResult resultComment, Model model,
+            HttpSession httpSession ) {
+
+        User user = (User) httpSession.getAttribute( "loggedUser" );
+        Spot spot = spotRepository.findByName( name );
+        ModelAndView modelAndView = new ModelAndView();
+        if ( resultComment.hasErrors() ) {
+            modelAndView.setViewName( "details-spot" );
+        } else {
+            comment.setUser( user );
+            comment.setSpot( spot );
+            commentServiceImpl.saveComment( comment );
+            modelAndView.setViewName( "details-spot" );
+            httpSession.setAttribute( "currentComment", comment );
+            modelAndView.addObject( "successMessage", "Votre commentaire a bien été enregistré !" );
+            modelAndView.addObject( "comment", new Comment() );
+            model.addAttribute( "comments", commentRepository.findAllBySpotId( spot.getId() ) );
+            log.info( "Le commentaire de l'utilisateur " + user.getName() + "est enregistré" );
+
+        }
         return modelAndView;
 
     }
@@ -161,33 +187,6 @@ public class SpotController implements WebMvcConfigurer {
         modelAndView.addObject( "comment", new Comment() );
         modelAndView.setViewName( "comment-form" );
 
-        return modelAndView;
-
-    }
-
-    @RequestMapping( value = "/ajouter-commentaire/enregistré", method = RequestMethod.POST )
-    public ModelAndView saveComment( @ModelAttribute( "comment" ) Comment comment,
-            BindingResult resultComment, Model model,
-            HttpSession httpSession ) {
-
-        User user = (User) httpSession.getAttribute( "loggedUser" );
-        Spot spot = (Spot) httpSession.getAttribute( "currentSpot" );
-
-        ModelAndView modelAndView = new ModelAndView();
-        if ( resultComment.hasErrors() ) {
-            modelAndView.setViewName( "details-spot" );
-        } else {
-            comment.setUser( user );
-            comment.setSpot( spot );
-            commentServiceImpl.saveComment( comment );
-            modelAndView.setViewName( "comment-form" );
-            httpSession.setAttribute( "currentComment", comment );
-            modelAndView.addObject( "successMessage", "Votre commentaire a bien été enregistré !" );
-            modelAndView.addObject( "comment", new Comment() );
-
-            log.info( "Le commentaire de l'utilisateur " + user.getName() + "est enregistré" );
-
-        }
         return modelAndView;
 
     }
@@ -210,6 +209,8 @@ public class SpotController implements WebMvcConfigurer {
             @ModelAttribute Localisation local ) {
         ModelAndView modelAndView = new ModelAndView();
 
+        User userSpot = spot.getUser();
+        spot.setUser( userSpot );
         spotServiceImpl.editSpot( spot );
 
         modelAndView.addObject( "successMessage", "Vos modifications ont bien été apportées" );
@@ -229,37 +230,38 @@ public class SpotController implements WebMvcConfigurer {
         return "list-spots";
     }
 
-    @PostMapping( value = "/commentaire/{id}" )
+    @GetMapping( value = "/commentaire/{id}" )
     public String edit( @PathVariable Long id, Model model ) {
         model.addAttribute( "comment", commentServiceImpl.findById( id ) );
-        // Create method
-        /*
-         * model.addAttribute( "spotComment",
-         * commentServiceImpl.findTopoByCommentId( id ) );
-         */
 
-        return "comment-form";
+        return "update-comment";
 
     }
 
-    @PostMapping( value = "/commentaire/modifier" )
-    public ModelAndView update( @PathVariable Long id, @ModelAttribute( "comment" ) @Valid Comment comment,
-            BindingResult result,
-            Model model ) {
+    @PostMapping( value = "/modifier/{id}" )
+    public ModelAndView updateComment( @PathVariable Long id, @ModelAttribute( "comment" ) Comment comment,
+            BindingResult result, Model model ) {
+
         model.addAttribute( "comment", commentServiceImpl.findById( id ) );
-        Spot spot = comment.getSpot();
+
+        Comment currentComment = commentServiceImpl.findById( id );
+        Spot spot = currentComment.getSpot();
+        User user = currentComment.getUser();
+        model.addAttribute( "user", currentComment.getUser() );
         ModelAndView modelAndView = new ModelAndView();
+
         if ( result.hasErrors() ) {
 
-            modelAndView.setViewName( "comment-form" );
+            modelAndView.setViewName( "update-comment" );
             return modelAndView;
         } else {
 
             comment.setSpot( spot );
+            comment.setUser( user );
             commentServiceImpl.editComment( comment );
 
             modelAndView.addObject( "successMessage", "Votre commentaire a bien été modifié" );
-            modelAndView.setViewName( "list-spots" );
+            modelAndView.setViewName( "update-comment" );
 
             log.info( "Le commentaire est modifié" );
 

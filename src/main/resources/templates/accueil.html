@@ -73,13 +73,10 @@
           <h1 class="mb-5">A la recherche d'un spot ?</h1>
         </div>
         <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
-          <form th:action="@{/recherche-spots}"  method="get">
+          <form th:action="@{/rechercher-spot}" method="get">
             <div class="form-row">
-              <div class="col-12 col-md-9 mb-2 mb-md-0">
-                <input type="text" class="form-control form-control-lg" placeholder="Entrer un département, un spot...">
-              </div>
-              <div class="col-12 col-md-3">
-                <button type="submit" class="btn btn-block btn-lg btn-primary">Rechercher</button>
+              <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
+                <button type="submit" class="btn btn-block btn-lg btn-primary">Ça commence ici !</button>
               </div>
             </div>
           </form>
@@ -98,7 +95,6 @@
               <i class="fas fa-search-location m-auto text-primary"></i>
             </div>
             <h3>Trouvez un spot</h3>
-            <p class="lead mb-0">This theme will look great on any device, no matter the size!</p>
           </div>
         </div>
         <div class="col-lg-4">
@@ -107,7 +103,6 @@
               <i class="far fa-comments m-auto text-primary"></i>
             </div>
             <h3>Echangez</h3>
-            <p class="lead mb-0">Featuring the latest build of the new Bootstrap 4 framework!</p>
           </div>
         </div>
         <div class="col-lg-4">
@@ -116,7 +111,6 @@
              <i class="fas fa-book ts m-auto text-primary"></i>
             </div>
             <h3>Réserver un topo</h3>
-            <p class="lead mb-0">Ready to use with your own content, or customize the source files!</p>
           </div>
         </div>
       </div>
@@ -154,53 +148,9 @@
   </section>
 
 
-  <!-- Footer -->
-  <footer class="footer bg-light">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
-          <ul class="list-inline mb-2">
-            <li class="list-inline-item">
-              <a href="#">About</a>
-            </li>
-            <li class="list-inline-item">&sdot;</li>
-            <li class="list-inline-item">
-              <a href="#">Contact</a>
-            </li>
-            <li class="list-inline-item">&sdot;</li>
-            <li class="list-inline-item">
-              <a href="#">Terms of Use</a>
-            </li>
-            <li class="list-inline-item">&sdot;</li>
-            <li class="list-inline-item">
-              <a href="#">Privacy Policy</a>
-            </li>
-          </ul>
-          <p class="text-muted small mb-4 mb-lg-0">&copy; Your Website 2019. All Rights Reserved.</p>
-        </div>
-        <div class="col-lg-6 h-100 text-center text-lg-right my-auto">
-          <ul class="list-inline mb-0">
-            <li class="list-inline-item mr-3">
-              <a href="#">
-                <i class="fab fa-facebook fa-2x fa-fw"></i>
-              </a>
-            </li>
-            <li class="list-inline-item mr-3">
-              <a href="#">
-                <i class="fab fa-twitter-square fa-2x fa-fw"></i>
-              </a>
-            </li>
-            <li class="list-inline-item">
-              <a href="#">
-                <i class="fab fa-instagram fa-2x fa-fw"></i>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
- 
-  </footer>
+   <!-- Footer -->
+  <div th:include="footer.html">
+  </div>
 
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>
@@ -211,7 +161,6 @@
 	  $('[data-toggle="tooltip"]').tooltip()
 	})
  </script>
-</script>
 </body>
 
 </html>
