@@ -35,7 +35,7 @@ Utiliser les commandes suivantes:
 - Mode Prod:
 		cd target - java -jar - escladefun.SNAPSHOT.jar
 
-## Utiliser l'applcation WEB
+## Utiliser l'application WEB
 
 - URL localhost:8088
 

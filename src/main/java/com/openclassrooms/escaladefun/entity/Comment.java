@@ -4,12 +4,15 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class Comment {
@@ -24,12 +27,14 @@ public class Comment {
 
     private Date   date = new Date();
 
-    @OneToOne
-    @JoinColumn( name = "spot_id" )
+    @OneToOne( fetch = FetchType.LAZY )
+    @JoinColumn( name = "spot_id", nullable = false, updatable = false, insertable = true )
+    @JsonBackReference
     private Spot   spot;
 
-    @OneToOne
-    @JoinColumn( name = "user_id" )
+    @OneToOne( fetch = FetchType.LAZY )
+    @JoinColumn( name = "user_id", nullable = false, updatable = false, insertable = true )
+    @JsonBackReference
     private User   user;
 
     public Comment() {
