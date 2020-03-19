@@ -174,6 +174,7 @@ public class TopoController implements WebMvcConfigurer {
         } else {
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             User user = userServiceImpl.findUserByEmail( auth.getName() );
+            model.addAttribute( "currentUser", user );
             httpSession.setAttribute( "loggedUser", user );
             topo.setUser( user );
             topoServiceImpl.saveTopo( topo );

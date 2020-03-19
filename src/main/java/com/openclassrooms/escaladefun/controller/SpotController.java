@@ -93,9 +93,9 @@ public class SpotController implements WebMvcConfigurer {
 
             User user = (User) httpSession.getAttribute( "loggedUser" );
             spot.setUser( user );
-            local.setSpot( spotExists );
-            localServiceImpl.saveLocal( local );
+            local.setSpot( spot );
             spotServiceImpl.saveSpot( spot );
+            localServiceImpl.saveLocal( local );
             modelAndView.addObject( "successMessage", "Votre site d'escalade a bien été enregistré" );
             modelAndView.addObject( "spot", new Spot() );
             modelAndView.addObject( "local", new Localisation() );
@@ -260,7 +260,7 @@ public class SpotController implements WebMvcConfigurer {
             comment.setUser( user );
             commentServiceImpl.editComment( comment );
 
-            modelAndView.addObject( "successMessage", "Votre commentaire a bien été modifié" );
+            modelAndView.addObject( "successMessage", "Le commentaire a bien été modifié" );
             modelAndView.setViewName( "update-comment" );
 
             log.info( "Le commentaire est modifié" );

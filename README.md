@@ -2,6 +2,7 @@
 
 ## Présentation du projet
 
+Réalisation d'un site web communautaire sur le thème de l'escalade en lien avec le parcours de Développeur d'Application Java d'OpenClassrooms.
 
 
 ## Pré-requis développement
