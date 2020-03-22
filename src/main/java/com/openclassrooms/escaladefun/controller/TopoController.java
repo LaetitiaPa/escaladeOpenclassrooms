@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -244,6 +245,47 @@ public class TopoController implements WebMvcConfigurer {
         log.info( "Une nouvelle demande de réservation vient d'être faite pour le topo : " + topo.getTitle() );
 
         return "redirect:/topos";
+    }
+
+    @GetMapping( value = "/topo-modifier/{id}" )
+    public String edit( @PathVariable Long id, Model model ) {
+        model.addAttribute( "topo", topoServiceImpl.findTopo( id ) );
+
+        return "update-topo";
+
+    }
+
+    @PostMapping( value = "/topo-modifier/{id}" )
+    public ModelAndView updateTopo( @PathVariable Long id, @ModelAttribute Topo topo, Model model,
+            BindingResult result ) {
+        ModelAndView modelAndView = new ModelAndView();
+        model.addAttribute( "topo", topoServiceImpl.findTopo( id ) );
+        Topo currentTopo = topoServiceImpl.findTopo( id );
+        User userTopo = currentTopo.getUser();
+
+        if ( result.hasErrors() ) {
+            modelAndView.setViewName( "update-topo" );
+            return modelAndView;
+
+        } else {
+            currentTopo.setUser( userTopo );
+            topoServiceImpl.editTopo( currentTopo );
+        }
+        modelAndView.addObject( "successMessage", "Vos modifications ont bien été apportées" );
+        modelAndView.setViewName( "redirect:/dashboard" );
+        model.addAttribute( "topo", topo );
+        log.info( "Le topo est modifié" );
+
+        return modelAndView;
+    }
+
+    @PostMapping( value = "/supprimer/{id}" )
+    public String deleteTopo( @PathVariable Long id, Model model ) {
+        topoServiceImpl.deleteTopo( id );
+
+        log.info( "Le topo est supprimé" );
+
+        return "redirect:/dashboard";
     }
 
 }

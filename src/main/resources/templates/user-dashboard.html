@@ -94,20 +94,19 @@
 	  <p th:case= true>Disponible</p>
     </div>
 	<td>
-	<a th:href="@{/}"
-	   class="btn btn-info btn-sm">
-		Modifier
-	</a>
-	<a th:href="@{/}"
-	   class="btn btn-danger btn-sm">
-		Supprimer
-	</a>
+	<form th:action="@{/topo-modifier/{id}(id=${topo.id})}" th:if="*{role.role} == 'USER'" th:object="${spot}" method="get">
+	  <button type="submit" class = "btn btn-primary btn-sm" >Modifier</button>
+	</form>
+	<form th:action="@{/supprimer/{id}(id=${topo.id})}" th:if="*{role.role} == 'USER'" th:object="${spot}" method="post">
+	  <button type="submit" class = "btn btn-danger btn-sm" >Supprimer</button>
+   </form>
  </td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
+<span style="color:green" th:text="${successMessage}"></span> 
 <div class="row justify-content-md-center">
 <div class="col-8">
 <table class="table table-bordered table-striped"  th:if="*{role.role} == 'ADMIN'">
@@ -129,19 +128,18 @@
 	  <p th:case= true>Oui</p>
 	   </div>
 	<td>
-	<a th:href="@{/afficher-un-spot(name=${spot.name})}" 
+	<a th:href="@{/afficher-un-spot{name}(name=${spot.name})}" 
 	   class="btn btn-info btn-sm">
 		Voir
 	</a>
-	 <form th:action="@{/spot/{id}(id=${spot.id})}" th:if="*{role.role} == 'ADMIN'" th:object="${spot}" method="get">
-	          	<button type="submit" class = "btn btn-primary btn-sm" >Modifier</button>
-	          </form>
-	<a th:href="@{/}"
-	   class="btn btn-danger btn-sm">
-		Supprimer
-	</a>
-  </td>
- </tr>
+	<form th:action="@{/spot/{id}(id=${spot.id})}" th:if="*{role.role} == 'ADMIN'" th:object="${spot}" method="get">
+	    <button type="submit" class = "btn btn-primary btn-sm" >Modifier</button>
+	</form>
+	<form th:action="@{/supprimer-spot/{id}(id=${spot.id})}" th:if="*{role.role} == 'ADMIN'" th:object="${spot}" method="post">
+	    <button type="submit" class = "btn btn-danger btn-sm" >Supprimer</button>
+   </form>
+   </td>
+  </tr>
 </tbody>		
 </table>
 </div>
@@ -178,7 +176,7 @@
 </tbody>
 </table>
 <div th:if="${#lists.isEmpty(AllResa)} and *{role.role} == 'USER'">
-   <span style="color:red"> Vous n'avez pas encore réservé de topo</span> 
+   <!-- <span style="color:red"> Aucun topo n'a encore été réservé</span>  -->
 </div>
 </div>
 </div>

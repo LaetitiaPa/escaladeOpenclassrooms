@@ -29,6 +29,9 @@
        <a th:href="@{/spots}" class="btn btn-primary btn-sm mb-3">
 		Retourner à la liste des spots
        </a>
+       <a th:if="${not #lists.isEmpty(role)} and *{role.role} == 'USER'" th:object=${spot} th:href="@{/spot/{id}(id=${spot.id})}" class="btn btn-primary btn-sm mb-3">
+		Editer le spot
+       </a>
 	   <table class="table table-bordered table-striped">
 	   <thead class="thead-dark">
 		<tr>
@@ -54,7 +57,7 @@
 		</tbody>		
 	</table>
 
-
+		<h4>Commentaires</h4>
 	 	<table  class="table table-bordered table-striped">
 		<thead class="thead-white">
 		<tr>
@@ -66,7 +69,7 @@
      	</thead>
 		<tbody>
 		<tr th:each= "comment: ${comments}">
-			<td th:text= "${comment.date} ">
+			<td th:text= "${#dates.format(comment.date, 'dd-MM-yyyy HH:mm')}">
 			<td th:text= "${comment.comments}">
 			<td th:text= "${comment.user?.name}">
 			<td>

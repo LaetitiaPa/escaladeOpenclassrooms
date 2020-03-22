@@ -174,23 +174,6 @@ public class SpotController implements WebMvcConfigurer {
 
     }
 
-    @RequestMapping( value = "/ajouter-commentaire-spot{name}", method = RequestMethod.GET )
-    public ModelAndView posterCommentaire( @RequestParam( "name" ) String name,
-            Model model, HttpSession httpSession ) {
-        ModelAndView modelAndView = new ModelAndView();
-        Spot spot = spotRepository.findByName( name );
-        Long spotId = spot.getId();
-
-        httpSession.setAttribute( "currentSpot", spot );
-        model.addAttribute( "singleSpot", spotRepository.getSpotByName( name ) );
-        model.addAttribute( "comments", commentRepository.findAllBySpotId( spotId ) );
-        modelAndView.addObject( "comment", new Comment() );
-        modelAndView.setViewName( "comment-form" );
-
-        return modelAndView;
-
-    }
-
     @GetMapping( value = "/spot/{id}" )
     public String editSpot( @PathVariable Long id, Model model ) {
         Spot spot = spotServiceImpl.findById( id );
@@ -200,7 +183,7 @@ public class SpotController implements WebMvcConfigurer {
         User user = userServiceImpl.findUserByEmail( auth.getName() );
         model.addAttribute( "role", user.getRole() );
 
-        return "modify-spot";
+        return "update-spot";
 
     }
 
@@ -214,7 +197,7 @@ public class SpotController implements WebMvcConfigurer {
         spotServiceImpl.editSpot( spot );
 
         modelAndView.addObject( "successMessage", "Vos modifications ont bien été apportées" );
-        modelAndView.setViewName( "redirect:/dashboard" );
+        modelAndView.setViewName( "redirect:/spots" );
 
         log.info( "Le spot est modifié" );
 
@@ -223,11 +206,11 @@ public class SpotController implements WebMvcConfigurer {
 
     @PostMapping( value = "/supprimer-spot/{id}" )
     public String deleteSpot( @PathVariable Long id, Model model ) {
-        commentServiceImpl.deleteComment( id );
+        spotServiceImpl.deleteSpot( id );
 
         log.info( "Le commentaire est supprimé" );
 
-        return "list-spots";
+        return "redirect:/dashboard";
     }
 
     @GetMapping( value = "/commentaire/{id}" )
@@ -284,26 +267,42 @@ public class SpotController implements WebMvcConfigurer {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName(
-                "search-test" );
+                "search-form" );
 
         return modelAndView;
     }
 
     @RequestMapping( value = "/spot", method = RequestMethod.GET )
-    public ModelAndView displaySpot(
-            @RequestParam( value = "cotation" ) String cotation,
-            @RequestParam( value = "region" ) String region,
-            @RequestParam( value = "height" ) Integer height,
-            @RequestParam( value = "climbingType" ) String climbingType,
-            @RequestParam( value = "holdsType" ) String holdsType,
-            @ModelAttribute( "spot" ) Spot spot, @ModelAttribute( "local" ) Localisation local, Model model ) {
+    public ModelAndView displaySpot( String cotation, String region, Integer height, String climbingType,
+            String holdsType, Integer trackNumber, String tracksPract, @ModelAttribute( "spot" ) Spot spot,
+            @ModelAttribute( "local" ) Localisation local,
+            Model model ) {
         ModelAndView modelAndView = new ModelAndView();
-        model.addAttribute( "filterSpot",
-                spotRepository.findSpotByRegionAndCotation( region, cotation, height, climbingType, holdsType ) );
-        modelAndView.setViewName( "search-results" );
 
+        if ( region.isEmpty() && cotation.isEmpty() && climbingType.isEmpty() && holdsType.isEmpty() && height == null
+                && trackNumber == null && tracksPract.isEmpty() ) {
+
+            model.addAttribute( "filterSpot", spotRepository.getSpots() );
+            modelAndView.setViewName( "search-form" );
+
+        } else if ( !region.isEmpty() && !cotation.isEmpty() && climbingType.isEmpty() && holdsType.isEmpty()
+                && height == null && trackNumber == null && tracksPract.isEmpty() ) {
+
+            model.addAttribute( "filterSpot", spotRepository.findSpotByRegionAndCotation( region, cotation ) );
+            modelAndView.setViewName( "search-results" );
+
+        } else if ( height != null && trackNumber != null && region.isEmpty() && cotation.isEmpty()
+                && climbingType.isEmpty() && holdsType.isEmpty()
+                && tracksPract.isEmpty() ) {
+            model.addAttribute( "filterSpot", spotRepository.findSpotByHeightAndTrackNumber( height, trackNumber ) );
+            modelAndView.setViewName( "search-results" );
+
+        } else {
+            model.addAttribute( "filterSpot", spotRepository.findSpotByAll( region, cotation, height, climbingType,
+                    holdsType, trackNumber, tracksPract ) );
+            modelAndView.setViewName( "search-results" );
+        }
         log.info( "Une nouvelle recherche est effectuée" );
-
         return modelAndView;
     }
 

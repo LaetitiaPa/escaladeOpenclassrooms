@@ -1,50 +1,54 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script src="jquery.fs.stepper.min.js"></script>
-<head>
-<meta charset="utf-8">
-<title>Créer un spot - Les Amis de l'Escalade</title>
-<link href="css/sign-up.css" rel="stylesheet">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-<link href="jquery.fs.stepper.css" rel="stylesheet" type="text/css">
-</head>
-<body>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-10 col-xl-9 mx-auto">
-        <div class="card card-signin flex-row my-5">
-          <div class="card-img-left d-none d-md-flex">
-             <!-- Background image for card set in CSS! -->
-          </div>
-          <div class="card-body">
-            <h5 class="card-title text-center">Ajouter un spot</h5>
-            <form name='spot' th:action="@{/ajouter-un-spot/enregistré}" class="form-signin"enctype="utf8" method="post">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-             <label th:if="${#fields.hasErrors('spot.name')}" th:errors="*{spot.name}"class="validation-message"></label>
-             <div class="form-label-group">
-             	<input type="text" th:field="*{spot.name}" class="form-control" required autofocus>
-             	<label for="inputSpotName">NOM</label>
-             </div>
-         
+	<link href="css/sign-up.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<link href="jquery.fs.stepper.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet" />
+
+   	<!-- Bootstrap core CSS -->
+  	<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+  <div th:include="navbar.html"></div>
+	<div class="container">
+	 <div class="row">
+	  <div class="col-lg-10 col-xl-9 mx-auto">
+	   <div class="card card-signin flex-row my-5">
+	    <div class="card-img-left d-none d-md-flex"></div>
+	     <div class="card-body">
+	     <h5 class="card-title text-center">Ajouter un spot</h5>
+	     <form name='spot' th:action="@{/ajouter-un-spot/enregistré}" class="form-signin"enctype="utf8" method="post">
+	       <label th:if="${#fields.hasErrors('spot.name')}" th:errors="*{spot.name}"class="validation-message"></label>
+	       <div class="form-label-group">
+	        <input type="text" th:field="*{spot.name}" class="form-control" required autofocus>
+	         <label for="inputSpotName">NOM</label>
+	        </div>
     		 <label th:if="${#fields.hasErrors('local.region')}" th:errors="*{local.region}"class="validation-message"></label>
              <div class="form-label-group">
              	<input type="text" th:field="*{local.region}" th:value="${local.region}" class="form-control"required autofocus>
              	<label for="inputRegion">REGION</label>
              </div>
-              
              <label th:if="${#fields.hasErrors('local.departement')}" th:errors="*{local.departement}"class="validation-message"></label>
              <div class="form-label-group">
 	           	<input type="text" th:field="*{local.departement}" class="form-control" required autofocus>
 	           	<label for="inpuDepartement">DEPARTEMENT</label>
              </div>
-  
 		     <label th:if="${#fields.hasErrors('spot.height')}" th:errors="*{spot.height}"class="validation-message"></label>
              <div class="form-label-group">
               	<input type="number" th:value="${spot.height}" min="1" max="1000" step="1" th:field="*{spot.height}" class="form-control" />	
              	<label for="inputHeight">HAUTEUR (en mètre)</label>
              </div>
-          
 	        <label th:if="${#fields.hasErrors('spot.cotation')}" th:errors="*{spot.cotation}"class="validation-message"></label>
 		     <div class="form-label-group">
 		      <div class="form-group">
@@ -72,75 +76,72 @@
 		        </select>
 			  </div>
 			</div>
-
-             <label th:if="${#fields.hasErrors('spot.track_number')}" th:errors="*{spot.track_number}"class="validation-message"></label>
-             <div class="form-label-group">
-              <input type="number" value="8" min="1" max="300" step="1" th:field="*{spot.track_number}" class="form-control" />
-              <label for="inputTracks_number">NOMBRE DE VOIES</label>
-             </div>
-            
-            <label th:if="${#fields.hasErrors('spot.tracks_pract')}" th:errors="*{spot.tracks_pract}"class="validation-message"></label>
-             <div class="form-label-group">
-             <div class="form-group">
-              <label for="inputTracks_pract">PRATICABILITE</label>
-              <select class="form-control" th:field="*{spot.tracks_pract}">
-			      <option value="" disabled selected hidden >-Choisir-</option>
-			      <option th:value="Familiale"  th:text="Familiale"></option>
-			      <option th:value="Correct"    th:text="Correct"></option>
-			      <option th:value="Escarpée"   th:text="Escarpée"></option>
-			    </select>
-			   </div>
-             </div>
-             
-             <label th:if="${#fields.hasErrors('spot.climbingType')}" th:errors="*{spot.climbingType}"class="validation-message"></label>
-             <div class="form-label-group">
-             <div class="form-group">
-              <label for="inputClimbing_type">TYPE D'ESCALADE</label>
-              <select class="form-control" th:field="*{spot.climbingType}">
-			      <option value="" disabled selected hidden >-Choisir-</option>
-			      <option th:value="Bloc"  th:text="Bloc"></option>
-			      <option th:value="Couenne"    th:text="Couenne"></option>
-			    </select>
-			   </div>
-             </div>
-             
-               <label th:if="${#fields.hasErrors('spot.holdsType')}" th:errors="*{spot.holdsType}"class="validation-message"></label>
-             <div class="form-label-group">
-             <div class="form-group">
-              <label for="inputHolds_type">TYPE DE PRISE</label>
-              <select class="form-control" th:field="*{spot.holdsType}">
-			      <option value="" disabled selected hidden >-Choisir-</option>
-			      <option th:value="Trous"        th:text="Trous"></option>
-			      <option th:value="Réglettes"    th:text="Réglettes"></option>
-			      <option th:value="Colonettes"   th:text="Colonettes"></option>
-			      <option th:value="Plats"        th:text="Plats"></option>
-			    </select>
-			   </div>
-             </div>
- 			 <hr>
-             <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">SOUMETTRE CE SPOT</button>
-          </form>
+            <label th:if="${#fields.hasErrors('spot.trackNumber')}" th:errors="*{spot.trackNumber}"class="validation-message"></label>
+            <div class="form-label-group">
+             <input type="number" value="8" min="1" max="300" step="1" th:field="*{spot.trackNumber}" class="form-control" />
+             <label for="inputTracks_number">NOMBRE DE VOIES</label>
+            </div>
+            <label th:if="${#fields.hasErrors('spot.tracksPract')}" th:errors="*{spot.tracksPract}"class="validation-message"></label>
+            <div class="form-label-group">
+            <div class="form-group">
+             <label for="inputTracks_pract">PRATICABILITE</label>
+             <select class="form-control" th:field="*{spot.tracksPract}">
+		      <option value="" disabled selected hidden >-Choisir-</option>
+		      <option th:value="Familiale"  th:text="Familiale"></option>
+		      <option th:value="Correct"    th:text="Correct"></option>
+		      <option th:value="Escarpée"   th:text="Escarpée"></option>
+		    </select>
+		   </div>
+          </div>    
+          <label th:if="${#fields.hasErrors('spot.climbingType')}" th:errors="*{spot.climbingType}"class="validation-message"></label>
+           <div class="form-label-group">
+            <div class="form-group">
+            <label for="inputClimbing_type">TYPE D'ESCALADE</label>
+            <select class="form-control" th:field="*{spot.climbingType}">
+	          <option value="" disabled selected hidden >-Choisir-</option>
+		      <option th:value="Bloc"  th:text="Bloc"></option>
+		      <option th:value="Couenne"    th:text="Couenne"></option>
+	       </select>
+	       </div>
          </div>
-        </div>
-      </div>
-    </div>
+	     <label th:if="${#fields.hasErrors('spot.holdsType')}" th:errors="*{spot.holdsType}"class="validation-message"></label>
+          <div class="form-label-group">
+            <div class="form-group">
+            <label for="inputHolds_type">TYPE DE PRISE</label>
+            <select class="form-control" th:field="*{spot.holdsType}">
+		      <option value="" disabled selected hidden >-Choisir-</option>
+		      <option th:value="Trous"        th:text="Trous"></option>
+		      <option th:value="Réglettes"    th:text="Réglettes"></option>
+		      <option th:value="Colonettes"   th:text="Colonettes"></option>
+		      <option th:value="Plats"        th:text="Plats"></option>
+    	   </select>
+         </div>
+       </div>
+	   <hr>
+      <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">SOUMETTRE CE SPOT</button>
+    </form>
   </div>
- 	<script>
-	 $(document).ready(function() {
-	 $("input[type='number']").stepper();
-	 });
-	</script>
-	<script>
-	
-	$(document).ready(function() {
-	$("input[type='number']").stepper({
-	customClass: "", // Class applied to instance
-	labels: {
-	up: "Up", // Up arrow label
-	down: "Down" // Down arrow label
-	}
-	});
-	});
+ </div>
+</div>
+</div>
+</div>
+<script>
+ $(document).ready(function() {
+ $("input[type='number']").stepper();
+ });
 </script>
+<script>
+
+$(document).ready(function() {
+$("input[type='number']").stepper({
+customClass: "", // Class applied to instance
+labels: {
+up: "Up", // Up arrow label
+down: "Down" // Down arrow label
+}
+});
+});
+</script>
+<div th:include="footer.html"></div>
 </body>
 </html>

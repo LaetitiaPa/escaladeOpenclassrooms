@@ -29,7 +29,7 @@ public class Spot {
     private String        name;
 
     @NotNull( message = "Merci de renseigner un nombre de voies" )
-    private Integer       track_number;
+    private Integer       trackNumber;
 
     @NotNull( message = "Merci de renseigner une hauteur" )
     private Integer       height;
@@ -44,7 +44,7 @@ public class Spot {
     private String        holdsType;
 
     @NotBlank( message = "Merci de renseigner la praticabilité" )
-    private String        tracks_pract;
+    private String        tracksPract;
 
     private Boolean       tag = false;
 
@@ -58,9 +58,9 @@ public class Spot {
 
     @Override
     public String toString() {
-        return "Spot [id=" + id + ", name=" + name + ", track_number=" + track_number + ", height=" + height
+        return "Spot [id=" + id + ", name=" + name + ", track_number=" + trackNumber + ", height=" + height
                 + ", cotation=" + cotation + ", climbingType=" + climbingType + ", holdsType=" + holdsType
-                + ", tracks_pract=" + tracks_pract + ", tag=" + tag + ", comment=" + comments + ", user=" + user + "]";
+                + ", tracks_pract=" + tracksPract + ", tag=" + tag + ", comment=" + comments + ", user=" + user + "]";
     }
 
     public Long getId() {
@@ -77,14 +77,6 @@ public class Spot {
 
     public void setName( String name ) {
         this.name = name;
-    }
-
-    public Integer getTrack_number() {
-        return track_number;
-    }
-
-    public void setTrack_number( Integer track_number ) {
-        this.track_number = track_number;
     }
 
     public Integer getHeight() {
@@ -111,12 +103,28 @@ public class Spot {
         this.climbingType = climbing_type;
     }
 
-    public String getTracks_pract() {
-        return tracks_pract;
+    public String getTracksPract() {
+        return tracksPract;
     }
 
-    public void setTracks_pract( String tracks_pract ) {
-        this.tracks_pract = tracks_pract;
+    public void setTracksPract( String TracksPract ) {
+        this.tracksPract = TracksPract;
+    }
+
+    public Integer getTrackNumber() {
+        return trackNumber;
+    }
+
+    public void setTrackNumber( Integer trackNumber ) {
+        this.trackNumber = trackNumber;
+    }
+
+    public String getHoldsType() {
+        return holdsType;
+    }
+
+    public void setHoldsType( String holdsType ) {
+        this.holdsType = holdsType;
     }
 
     public Boolean getTag() {
@@ -144,35 +152,27 @@ public class Spot {
     }
 
     public Spot( @NotBlank( message = "Merci de renseigner le nom de la falaise" ) String name,
-            @NotNull( message = "Merci de renseigner un nombre de voies" ) Integer track_number,
+            @NotNull( message = "Merci de renseigner un nombre de voies" ) Integer trackNumber,
             @NotNull( message = "Merci de renseigner une hauteur" ) Integer height,
             @NotBlank( message = "Merci de renseigner une cotation" ) String cotation,
             @NotBlank( message = "Merci de renseigner un type d'escalade" ) String climbingType,
             @NotBlank( message = "Merci de renseigner un type de prise" ) String holdsType,
-            @NotBlank( message = "Merci de renseigner la praticabilité" ) String tracks_pract, Boolean tag ) {
+            @NotBlank( message = "Merci de renseigner la praticabilité" ) String tracksPract, Boolean tag ) {
         super();
         this.name = name;
 
-        this.track_number = track_number;
+        this.trackNumber = trackNumber;
         this.height = height;
         this.cotation = cotation;
         this.climbingType = climbingType;
         this.holdsType = holdsType;
-        this.tracks_pract = tracks_pract;
+        this.tracksPract = tracksPract;
         this.tag = tag;
 
     }
 
     public Spot() {
         // TODO Auto-generated constructor stub
-    }
-
-    public String getHoldsType() {
-        return holdsType;
-    }
-
-    public void setHoldsType( String holdsType ) {
-        this.holdsType = holdsType;
     }
 
 }

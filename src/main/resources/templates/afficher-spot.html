@@ -18,8 +18,7 @@
 
 	<h3>Mon espace</h3>
 	<hr>
-	
-	<!-- Add a button -->
+
 	<a th:href="@{/}"
 		class="btn btn-primary btn-sm mb-3">
 		Revenir à l'accueil
@@ -39,20 +38,17 @@
 		</thead>
 		
 		<tbody>
-		
 			<tr th:each="spot : ${specificSpots}">
-				<td th:text="${spot.name}">
-				
-				<td>
-					<a th:href="@{/Afficher-un-spot}"
-					   class="btn btn-info btn-sm">
-						Afficher
-					</a>
-				</td>
-
+			 <td th:text="${spot.name}">	
+			 <td>
+				<a th:href="@{/Afficher-un-spot}"
+				   class="btn btn-info btn-sm">
+					Afficher
+			   </a>
+			</td>
 		</tbody>		
 	</table>
-</div>
+  </div>
 </body>
 </html>
 
