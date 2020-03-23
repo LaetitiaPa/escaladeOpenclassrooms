@@ -41,7 +41,7 @@
 			<th>Nombre de voies</th>
 			<th>Cotation</th>
 			<th>Officiel de l'escalade</th>
-			<th th:if="${not #lists.isEmpty(role)} and *{role.role} == 'ADMIN'">Action</th>	
+			<th>Remarques</th>
 		</tr>
 		</thead>
 		<tbody>
@@ -50,8 +50,9 @@
 			<td th:text= "${spot.region}">
 			<td th:text= "${spot.departement}">
 			<td th:text= "${spot.track_number}">
-			<td th:text="${spot.cotation}" >
+			<td th:text="${spot.cotation}">
 			<td th:text= "non"  th:if="${spot.tag} == false" th:else= "oui">
+			<td th:text="${spot.remarks}" >
 			<td >
 		    </td>
 		</tbody>		

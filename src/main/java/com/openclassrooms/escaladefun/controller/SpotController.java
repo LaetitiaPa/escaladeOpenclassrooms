@@ -148,13 +148,39 @@ public class SpotController implements WebMvcConfigurer {
 
     }
 
+    /*
+     * @GetMapping( value = "/afficher-un-spot{id}" ) public ModelAndView
+     * displaySpotByID( @RequestParam( "id" ) Long id, @PathVariable( "id" )
+     * Long spotId, Model model, HttpSession httpSession ) { ModelAndView
+     * modelAndView = new ModelAndView();
+     * 
+     * if ( httpSession.getAttribute( "loggedUser" ) != null ) { Authentication
+     * auth = SecurityContextHolder.getContext().getAuthentication(); User user
+     * = userServiceImpl.findUserByEmail( auth.getName() ); model.addAttribute(
+     * "currentUser", user ); model.addAttribute( "role", user.getRole() ); }
+     * 
+     * model.addAttribute( "singleSpot", spotRepository.findById( id ) ); Spot
+     * spot = spotRepository.findById( id ); Long spotId = spot.get;
+     * model.addAttribute( "spotName", spotName ); model.addAttribute( "spot",
+     * spot ); Long spotId = spot.getId(); model.addAttribute( "comments",
+     * commentRepository.findAllBySpotId( spotId ) ); modelAndView.addObject(
+     * "comment", new Comment() ); modelAndView.setViewName( "details-spot" );
+     * 
+     * log.info( "Le spot " + spot.getName() + "est affiché" );
+     * 
+     * return modelAndView;
+     * 
+     * }
+     */
     @PostMapping( value = "/afficher-un-spot{name}" )
-    public ModelAndView saveComment( @PathVariable( "name" ) String name, @ModelAttribute( "comment" ) Comment comment,
+    public ModelAndView saveComment(
+            @PathVariable( "name" ) String pathName,
+            @ModelAttribute( "comment" ) Comment comment,
             BindingResult resultComment, Model model,
             HttpSession httpSession ) {
 
         User user = (User) httpSession.getAttribute( "loggedUser" );
-        Spot spot = spotRepository.findByName( name );
+        Spot spot = spotRepository.findByName( pathName );
         ModelAndView modelAndView = new ModelAndView();
         if ( resultComment.hasErrors() ) {
             modelAndView.setViewName( "details-spot" );
@@ -289,18 +315,18 @@ public class SpotController implements WebMvcConfigurer {
                 && height == null && trackNumber == null && tracksPract.isEmpty() ) {
 
             model.addAttribute( "filterSpot", spotRepository.findSpotByRegionAndCotation( region, cotation ) );
-            modelAndView.setViewName( "search-results" );
+            modelAndView.setViewName( "search-form" );
 
         } else if ( height != null && trackNumber != null && region.isEmpty() && cotation.isEmpty()
                 && climbingType.isEmpty() && holdsType.isEmpty()
                 && tracksPract.isEmpty() ) {
             model.addAttribute( "filterSpot", spotRepository.findSpotByHeightAndTrackNumber( height, trackNumber ) );
-            modelAndView.setViewName( "search-results" );
+            modelAndView.setViewName( "search-form" );
 
         } else {
             model.addAttribute( "filterSpot", spotRepository.findSpotByAll( region, cotation, height, climbingType,
                     holdsType, trackNumber, tracksPract ) );
-            modelAndView.setViewName( "search-results" );
+            modelAndView.setViewName( "search-form" );
         }
         log.info( "Une nouvelle recherche est effectuée" );
         return modelAndView;

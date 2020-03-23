@@ -1,0 +1,56 @@
+-- MySQL dump 10.13  Distrib 8.0.18, for Win64 (x86_64)
+--
+-- Host: localhost    Database: amisescalade
+-- ------------------------------------------------------
+-- Server version	8.0.18
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!50503 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `comment`
+--
+
+DROP TABLE IF EXISTS `comment`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `comment` (
+  `comment_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `comments` varchar(255) NOT NULL,
+  `date` datetime DEFAULT NULL,
+  `spot_id` bigint(20) DEFAULT NULL,
+  `user_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`comment_id`),
+  KEY `FKitlok6t6a7917bc3tweondq5b` (`spot_id`),
+  KEY `FK8kcum44fvpupyw6f5baccx25c` (`user_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=59 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `comment`
+--
+
+LOCK TABLES `comment` WRITE;
+/*!40000 ALTER TABLE `comment` DISABLE KEYS */;
+INSERT INTO `comment` VALUES (1,'test','2020-02-09 18:25:34',NULL,NULL),(2,'test','2020-02-10 10:04:28',NULL,NULL),(3,'test','2020-02-10 13:41:15',NULL,NULL),(4,'test','2020-02-10 16:24:38',NULL,1),(5,'test','2020-02-10 16:41:03',NULL,NULL),(6,'test','2020-02-10 16:43:10',NULL,NULL),(7,'test','2020-02-10 16:43:51',NULL,NULL),(8,'test','2020-02-10 16:53:27',NULL,NULL),(9,'test','2020-02-10 17:53:08',NULL,1),(10,'test','2020-02-10 18:10:29',NULL,NULL),(11,'test','2020-02-10 18:10:31',NULL,NULL),(12,'test','2020-02-10 18:11:14',NULL,NULL),(13,'test','2020-02-10 18:53:44',NULL,NULL),(14,'test','2020-02-10 18:54:02',NULL,NULL),(15,'test','2020-02-11 09:48:19',NULL,1),(16,'test','2020-02-11 09:50:55',NULL,NULL),(17,'test','2020-02-11 09:51:59',NULL,NULL),(18,'ssss','2020-02-11 09:52:20',NULL,NULL),(19,'ssss','2020-02-11 09:53:12',NULL,NULL),(20,'ssss','2020-02-11 09:53:43',NULL,NULL),(25,'test modifié','2020-02-12 11:10:52',NULL,NULL),(26,'test','2020-02-12 11:16:16',NULL,NULL),(31,'test','2020-02-12 13:52:38',1,1),(32,'test','2020-02-12 14:42:27',NULL,NULL),(33,'test','2020-02-12 14:53:25',1,1),(54,'test','2020-03-03 10:18:54',1,16),(35,'test','2020-02-12 15:02:01',1,2),(36,'test','2020-02-12 15:03:06',NULL,NULL),(37,'test','2020-02-12 15:03:18',NULL,NULL),(38,'test','2020-02-12 15:04:19',NULL,NULL),(39,'test','2020-02-12 15:06:03',NULL,NULL),(40,'test','2020-02-12 15:06:49',NULL,NULL),(41,'test','2020-02-12 15:08:51',3,NULL),(42,'test','2020-02-12 15:09:12',2,NULL),(47,'test blabla','2020-02-12 18:22:05',NULL,1),(48,'blabla','2020-02-22 16:59:07',1,1),(49,'test','2020-02-24 13:19:20',1,18),(50,'test','2020-02-25 16:03:58',1,16),(51,'test','2020-02-26 10:09:26',1,16),(53,'modifié !','2020-03-02 15:45:42',NULL,16),(55,'test2','2020-03-10 13:53:44',NULL,NULL),(56,'test modif','2020-03-10 14:06:12',NULL,NULL),(57,'test mod','2020-03-10 14:10:15',NULL,16),(58,'mon premier commentaire','2020-03-12 10:45:18',19,61);
+/*!40000 ALTER TABLE `comment` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2020-03-13 17:30:30

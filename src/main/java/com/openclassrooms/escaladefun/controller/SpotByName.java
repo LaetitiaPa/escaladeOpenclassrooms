@@ -20,6 +20,8 @@ public class SpotByName {
 
     private String  tracks_pract;
 
+    private String  remarks;
+
     private boolean tag;
 
     public String getDepartement() {
@@ -95,7 +97,8 @@ public class SpotByName {
     }
 
     public SpotByName( String name, String region, String departement, Integer track_number, Integer height,
-            String cotation, String climbing_type, String holds_type, String tracks_pract ) {
+            String cotation, String climbing_type, String holds_type, String tracks_pract, String remarks,
+            boolean tag ) {
         super();
         this.name = name;
         this.region = region;
@@ -106,6 +109,8 @@ public class SpotByName {
         this.climbing_type = climbing_type;
         this.holds_type = holds_type;
         this.tracks_pract = tracks_pract;
+        this.remarks = remarks;
+        this.tag = tag;
     }
 
     public boolean isTag() {
@@ -114,6 +119,14 @@ public class SpotByName {
 
     public void setTag( boolean tag ) {
         this.tag = tag;
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks( String remarks ) {
+        this.remarks = remarks;
     }
 
 }

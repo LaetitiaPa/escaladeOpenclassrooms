@@ -1,0 +1,69 @@
+
+USER
+
+insert into user (user_id, active, email, last_name,name, password) values (1, true, 'demo1@gmail.com', 'Durant',  "Nadia", "demo123");
+insert into user (user_id, active, email, last_name,name, password) values (2, true, 'demo2@gmail.com', 'Dupont', "Jacques", "demo123");
+insert into user (user_id, active, email, last_name,name, password) values (3, true, 'demo2@gmail.com', 'Moira', "Janelle", "demo123");
+insert into user (user_id, active, email, last_name,name, password) values (4, true, 'demo2@gmail.com', 'Vergas', "Thomas", "demo123");
+insert into user (user_id, active, email, last_name,name, password) values (5, true, 'demo3@gmail.com', 'Martin', "Jana", "demo123");
+
+ROLE
+insert into role (role_id, role) values (1, "ADMIN");
+insert into role (role_id, role) values (2, "USER");
+
+USER_ROLE
+insert into role (user_id, role_id) values (1, 2);
+insert into role (user_id, role_id) values (2, 2);
+insert into role (user_id, role_id) values (3, 1);
+
+
+SPOT
+
+insert into spot (spot_id, climbing_type, cotation, height, holds_type, name, remarks, tag, track_number, tracks_pract, user_id) values (1, 'Bloc', '4a', 80, 'colonettes', 'Buoux', 'Falaise particulièrement belle avec tous les styles d'escalade souvent très exigeant', false, 500, 'Correct', 1);
+insert into spot (spot_id, climbing_type, cotation, height, holds_type, name, remarks, tag, track_number, tracks_pract, user_id) values (2, 'Couenne', '5a', 95, 'colonettes', 'Baderne', 'Interdiction à la pratique du 1er décembre au 15 juillet par Arrêté Biotope.', false, 600, 'Escarpée', 2);
+insert into spot (spot_id, climbing_type, cotation, height, holds_type, name, remarks, tag, track_number, tracks_pract, user_id) values (3, 'Bloc', '8a', 80, 'réglettes', 'Frontenac', '', true, 450, 'Familiale', 1);
+insert into spot (spot_id, climbing_type, cotation, height, holds_type, name, remarks, tag, track_number, tracks_pract, user_id) values (4, 'Couenne', '4b', 70, 'trous', 'Saint léger du ventoux', ' Idéal pour les longs séjours au vu du nombre de secteurs. Intéressant à partir du 6a régulier', true, 250, 'Correct', 1);
+insert into spot (spot_id, climbing_type, cotation, height, holds_type, name, remarks, tag, track_number, tracks_pract, user_id) values (5, 'Bloc', '7a', 60, 'trous', 'La pierre du Quart', 'Petit site tout mignon avec vue sur le lac du Bourget. La particularité est son monolithe avec une grimpe possible sur chacune de ses faces, donc en fonction des conditions, il suffit de changer de face.', false, 450, 'Escarpée', 2);
+insert into spot (spot_id, climbing_type, cotation, height, holds_type, name, remarks, tag, track_number, tracks_pract, user_id) values (6, 'Couenne', '6c', 55, 'réglettes', 'Chulilla', '', true, 200, 'Correct', 2);
+insert into spot (spot_id, climbing_type, cotation, height, holds_type, name, remarks, tag, track_number, tracks_pract, user_id) values (7, 'Bloc', '9b', 55, 'colonettes', 'Seynes', 'Belle falaise d'hiver, des cotations pas toujours homogènes sur les différents secteurs.', true, 200, 'Correct', 1);
+insert into spot (spot_id, climbing_type, cotation, height, holds_type, name, remarks, tag, track_number, tracks_pract, user_id) values (8, 'Bloc', '5b', 55, 'colonettes', 'Vergisson', 'Des cotations pas toujours homogènes sur les différents secteurs.', true, 300, 'Correct', 1);
+
+
+
+
+LOCALISATION
+insert into localisation (local_id, departement, region, spot_spot_id) values (1, 'Saone et Loire', 'Bourgogne', 1);
+insert into localisation (local_id, departement, region, spot_spot_id) values (2, 'Hautes Alpes', 'Provence', 2);
+insert into localisation (local_id, departement, region, spot_spot_id) values (3, 'Hautes Alpes', 'Provence', 3);
+insert into localisation (local_id, departement, region, spot_spot_id) values (4, 'Saone et Loire', 'Bourgogne', 4);
+insert into localisation (local_id, departement, region, spot_spot_id) values (5, 'Languedoc Roussillon', 'Gard', 5);
+insert into localisation (local_id, departement, region, spot_spot_id) values (6, 'Pays de la Loire', 'Vendée', 6);
+insert into localisation (local_id, departement, region, spot_spot_id) values (7, 'Languedoc Roussillon', 'Gard', 7);
+insert into localisation (local_id, departement, region, spot_spot_id) values (8, 'Hautes Alpes', 'Provence', 8);
+
+  
+COMMENT
+insert into comment(comment_id, comments, date, spot_id, user_id) values (1, "Une des plus belles falaises de France. Tout est beau, le cadre, les voies ... Idéal pour les longs séjours au vu du nombre de secteurs Intéressant à partir du 6a régulier", '2020-03-23 10:03:17', 1, 1);
+insert into comment(comment_id, comments, date, spot_id, user_id) values (2, "Super falaise",'2020-03-23 10:03:17', 1, 2);
+insert into comment(comment_id, comments, date, spot_id, user_id) values (3, "Une des plus belles falaises de France. Tout est beau, le cadre, les voies ... Idéal pour les longs séjours au vu du nombre de secteurs Intéressant à partir du 6a régulier", '2020-03-23 10:03:17', 2, 1);
+insert into comment(comment_id, comments, date, spot_id, user_id) values (4, "Je confirme !",'2020-03-23 10:03:17' ,2, 2);
+insert into comment(comment_id, comments, date, spot_id, user_id) values (5, "Je confirme !",'2020-03-23 10:03:17' ,2, 2);
+insert into comment(comment_id, comments, date, spot_id, user_id) values (6, "A essayer !", '2020-03-23 10:03:17',3, 2);
+insert into comment(comment_id, comments, date, spot_id, user_id) values (7, "Accessible aux novices",'2020-03-23 10:03:17' ,3, 1);
+insert into comment(comment_id, comments, date, spot_id, user_id) values (8, "Accessible aux plus experimentés", '2020-03-23 10:03:17',4, 1);
+insert into comment(comment_id, comments, date, spot_id, user_id) values (9, "A voir ", '2020-03-23 10:03:17',4, 2 );
+insert into comment(comment_id, comments, date, spot_id, user_id) values (10, "Je la déconseille, beaucoup trop de chutte de pierre.",'2020-03-23 10:03:17' ,5, 2);
+insert into comment(comment_id, comments, date, spot_id, user_id) values (11, "Idéal pour les longs séjours au vu du nombre de secteurs intéressant à partir du 6a régulier", '2020-03-23 10:03:17',6, 1);
+insert into comment(comment_id, comments, date, spot_id, user_id) values (12, "Secteurs intéressant à partir du 7a régulier", '2020-03-23 10:03:17', 7, 1);
+insert into comment(comment_id, comments, date, spot_id, user_id) values (13, "Secteurs intéressant à partir du 7a régulier",'2020-03-23 10:03:17' ,8, 1);
+insert into comment(comment_id, comments, date, spot_id, user_id) values (14, "Très belles voies",'2020-03-23 10:03:17' ,8, 2);
+
+
+TOPO
+insert into topo(topo_id, availability, description, publishing_date, region, title, resa_id, user_id) values (2, true, "Topo des Alpes", '2020-03-12 00:00:00', "Bourgogne", "Guide d'escalade de Bourgogne", null ,2);
+insert into topo(topo_id, availability, description, publishing_date, region, title, resa_id, user_id) values (3, true, "Topo de Bretagne", '2020-03-06 00:00:00', "Bretagne", "Guide d'escalade Breton", null ,3);
+insert into topo(topo_id, availability, description, publishing_date, region, title, resa_id, user_id) values (4, true, "Topo de Lorraine", '2020-03-23 00:00:00', "Alsace", "Guide d'escalade Alsacien", null ,4);
+insert into topo(topo_id, availability, description, publishing_date, region, title, resa_id, user_id) values (5, true, "Le meilleur guide d'Alsace", '2020-03-22 00:00:00', "Alsace", "Guide d'escalade Alsacien", null ,1);
+insert into topo(topo_id, availability, description, publishing_date, region, title, resa_id, user_id) values (6, true, "Le meilleur guide de Côte d'Armor", '2020-03-13 00:00:00', "Bretagne", "Guide d'escalade Alsacien", null ,2);
+insert into topo(topo_id, availability, description, publishing_date, region, title, resa_id, user_id) values (7, true, "Excellent guide provenciale", '2020-03-12 00:00:00', "Alsace", "Guide d'escalade Provencial", null ,2);
+insert into topo(topo_id, availability, description, publishing_date, region, title, resa_id, user_id) values (8, true, "Escaldes Alpines", '2020-03-11 00:00:00', "Gard", "Guide d escalade Alsacien", null ,3);

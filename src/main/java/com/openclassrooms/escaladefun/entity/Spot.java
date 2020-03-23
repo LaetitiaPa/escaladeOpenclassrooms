@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
@@ -46,6 +47,9 @@ public class Spot {
     @NotBlank( message = "Merci de renseigner la praticabilité" )
     private String        tracksPract;
 
+    @Lob
+    private String        remarks;
+
     private Boolean       tag = false;
 
     @OneToMany( mappedBy = "spot", cascade = CascadeType.REMOVE )
@@ -58,9 +62,10 @@ public class Spot {
 
     @Override
     public String toString() {
-        return "Spot [id=" + id + ", name=" + name + ", track_number=" + trackNumber + ", height=" + height
+        return "Spot [id=" + id + ", name=" + name + ", trackNumber=" + trackNumber + ", height=" + height
                 + ", cotation=" + cotation + ", climbingType=" + climbingType + ", holdsType=" + holdsType
-                + ", tracks_pract=" + tracksPract + ", tag=" + tag + ", comment=" + comments + ", user=" + user + "]";
+                + ", tracksPract=" + tracksPract + ", remarks=" + remarks + ", tag=" + tag + ", comments=" + comments
+                + ", user=" + user + "]";
     }
 
     public Long getId() {
@@ -135,6 +140,14 @@ public class Spot {
         this.tag = tag;
     }
 
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks( String remarks ) {
+        this.remarks = remarks;
+    }
+
     public List<Comment> getComments() {
         return comments;
     }
@@ -157,18 +170,20 @@ public class Spot {
             @NotBlank( message = "Merci de renseigner une cotation" ) String cotation,
             @NotBlank( message = "Merci de renseigner un type d'escalade" ) String climbingType,
             @NotBlank( message = "Merci de renseigner un type de prise" ) String holdsType,
-            @NotBlank( message = "Merci de renseigner la praticabilité" ) String tracksPract, Boolean tag ) {
+            @NotBlank( message = "Merci de renseigner la praticabilité" ) String tracksPract, String remarks,
+            Boolean tag, List<Comment> comments, User user ) {
         super();
         this.name = name;
-
         this.trackNumber = trackNumber;
         this.height = height;
         this.cotation = cotation;
         this.climbingType = climbingType;
         this.holdsType = holdsType;
         this.tracksPract = tracksPract;
+        this.remarks = remarks;
         this.tag = tag;
-
+        this.comments = comments;
+        this.user = user;
     }
 
     public Spot() {

@@ -24,6 +24,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import com.openclassrooms.escaladefun.entity.Reservation;
 import com.openclassrooms.escaladefun.entity.Topo;
 import com.openclassrooms.escaladefun.entity.User;
+import com.openclassrooms.escaladefun.repository.CommentRepository;
 import com.openclassrooms.escaladefun.repository.ReservationRepository;
 import com.openclassrooms.escaladefun.repository.SpotRepository;
 import com.openclassrooms.escaladefun.repository.TopoRepository;
@@ -45,6 +46,9 @@ public class TopoController implements WebMvcConfigurer {
 
     @Autowired
     TopoRepository              topoRepository;
+
+    @Autowired
+    CommentRepository           commentRepository;
 
     @Autowired
     SpotRepository              spotRepository;

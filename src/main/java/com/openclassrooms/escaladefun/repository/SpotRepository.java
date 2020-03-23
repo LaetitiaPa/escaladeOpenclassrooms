@@ -21,22 +21,24 @@ public interface SpotRepository extends JpaRepository<Spot, Long> {
 
     Spot findByName( String name );
 
+    /* Spot findById( Long id ); */
+
     List<Spot> findByNameIs( String name );
 
-    @Query( "SELECT NEW com.openclassrooms.escaladefun.controller.SpotByName( s.name, l.region, l.departement, s.trackNumber, s.height, s.cotation, s.climbingType, s.holdsType, s.tracksPract) FROM Spot s JOIN Localisation  l ON "
+    @Query( "SELECT NEW com.openclassrooms.escaladefun.controller.SpotByName( s.name, l.region, l.departement, s.trackNumber, s.height, s.cotation, s.climbingType, s.holdsType, s.tracksPract , s.remarks, s.tag ) FROM Spot s JOIN Localisation  l ON "
             + "l.spot = s.id WHERE s.name =:name" )
     List<SpotByName> getSpotByName( String name );
 
-    @Query( "SELECT NEW com.openclassrooms.escaladefun.controller.SpotByName( s.name, l.region, l.departement, s.trackNumber, s.height, s.cotation, s.climbingType, s.holdsType, s.tracksPract) FROM Spot s JOIN Localisation  l ON "
+    @Query( "SELECT NEW com.openclassrooms.escaladefun.controller.SpotByName( s.name, l.region, l.departement, s.trackNumber, s.height, s.cotation, s.climbingType, s.holdsType, s.tracksPract , s.remarks, s.tag) FROM Spot s JOIN Localisation  l ON "
             + "l.spot = s.id WHERE l.region =:region and s.cotation=:cotation and s.height=:height and s.climbingType=:climbingType and s.holdsType=:holdsType and s.trackNumber=:trackNumber and s.tracksPract=:tracksPract" )
     List<SpotByName> findSpotByAll( String region, String cotation, Integer height, String climbingType,
             String holdsType, Integer trackNumber, String tracksPract );
 
-    @Query( "SELECT NEW com.openclassrooms.escaladefun.controller.SpotByName( s.name, l.region, l.departement, s.trackNumber, s.height, s.cotation, s.climbingType, s.holdsType, s.tracksPract ) FROM Spot  s JOIN Localisation  l ON "
+    @Query( "SELECT NEW com.openclassrooms.escaladefun.controller.SpotByName(s.name, l.region, l.departement, s.trackNumber, s.height, s.cotation, s.climbingType, s.holdsType, s.tracksPract , s.remarks, s.tag ) FROM Spot  s JOIN Localisation  l ON "
             + "l.spot = s.id WHERE l.region=:region and s.cotation=:cotation" )
     List<SpotByName> findSpotByRegionAndCotation( String region, String cotation );
 
-    @Query( "SELECT NEW com.openclassrooms.escaladefun.controller.SpotByName( s.name, l.region, l.departement, s.trackNumber, s.height, s.cotation, s.climbingType, s.holdsType, s.tracksPract ) FROM Spot  s JOIN Localisation  l ON "
+    @Query( "SELECT NEW com.openclassrooms.escaladefun.controller.SpotByName(s.name, l.region, l.departement, s.trackNumber, s.height, s.cotation, s.climbingType, s.holdsType, s.tracksPract , s.remarks, s.tag ) FROM Spot  s JOIN Localisation  l ON "
             + "l.spot = s.id WHERE s.height=:height and s.trackNumber=:trackNumber" )
     List<SpotByName> findSpotByHeightAndTrackNumber( Integer height, Integer trackNumber );
 

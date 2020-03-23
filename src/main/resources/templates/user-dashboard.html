@@ -128,10 +128,9 @@
 	  <p th:case= true>Oui</p>
 	   </div>
 	<td>
-	<a th:href="@{/afficher-un-spot{name}(name=${spot.name})}" 
-	   class="btn btn-info btn-sm">
-		Voir
-	</a>
+	<form th:action="@{/afficher-un-spot(name=${spot.name})}" th:if="*{role.role} == 'ADMIN'" th:object="${spot}" method="get">
+	    <button type="submit" class = "btn btn-info btn-sm" >Voir</button>
+	</form>
 	<form th:action="@{/spot/{id}(id=${spot.id})}" th:if="*{role.role} == 'ADMIN'" th:object="${spot}" method="get">
 	    <button type="submit" class = "btn btn-primary btn-sm" >Modifier</button>
 	</form>
