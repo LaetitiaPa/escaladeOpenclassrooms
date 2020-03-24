@@ -135,8 +135,10 @@ public class SpotController implements WebMvcConfigurer {
         model.addAttribute( "singleSpot", spotRepository.getSpotByName( name ) );
         Spot spot = spotRepository.findByName( name );
         String spotName = spot.getName();
+        String spotImage = spot.getImage();
         model.addAttribute( "spotName", spotName );
         model.addAttribute( "spot", spot );
+        model.addAttribute( "spotImage", spotImage );
         Long spotId = spot.getId();
         model.addAttribute( "comments", commentRepository.findAllBySpotId( spotId ) );
         modelAndView.addObject( "comment", new Comment() );
@@ -195,6 +197,10 @@ public class SpotController implements WebMvcConfigurer {
         ModelAndView modelAndView = new ModelAndView();
 
         User userSpot = spot.getUser();
+        String userImage = spot.getImage();
+        String spotRemarks = spot.getRemarks();
+        spot.setRemarks( spotRemarks );
+        spot.setImage( userImage );
         spot.setUser( userSpot );
         spotServiceImpl.editSpot( spot );
 

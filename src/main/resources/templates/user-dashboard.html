@@ -126,11 +126,8 @@
 	<div th:switch="${spot.tag}"> 
 	  <p th:case= false >Non</p>
 	  <p th:case= true>Oui</p>
-	   </div>
-	<td>
-<!-- 	<form th:action="@{/afficher-un-spot{name}(name=${spot.name})}" th:if="*{role.role} == 'ADMIN'" th:object="${spot}" method="get">
-	    <button type="submit" class = "btn btn-info btn-sm" >Voir</button>
-	</form> -->
+    </div>
+    <td>
 	<form th:action="@{/spot/{id}(id=${spot.id})}" th:if="*{role.role} == 'ADMIN'" th:object="${spot}" method="get">
 	    <button type="submit" class = "btn btn-primary btn-sm" >Modifier</button>
 	</form>
@@ -175,7 +172,6 @@
 </tbody>
 </table>
 <div th:if="${#lists.isEmpty(AllResa)} and *{role.role} == 'USER'">
-   <!-- <span style="color:red"> Aucun topo n'a encore été réservé</span>  -->
 </div>
 </div>
 </div>

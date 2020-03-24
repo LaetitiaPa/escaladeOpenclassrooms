@@ -68,7 +68,7 @@
 		   <label for="inputTracks_number">NOMBRE DE VOIES</label>
            <label th:if="${#fields.hasErrors('spot.trackNumber')}" th:errors="*{spot.trackNumber}"class="validation-message"></label>
            <div class="form-label-group">
-           	<input type="number" value="8" min="1" max="300" step="1" th:field="*{spot.trackNumber}" class="form-control" />
+           	<input type="number" th:value="${spot.trackNumber}" min="1" max="1000" step="1" th:field="*{spot.trackNumber}" class="form-control" />
           </div>
           <label th:if="${#fields.hasErrors('spot.tracksPract')}" th:errors="*{spot.tracksPract}"class="validation-message"></label>
           <div class="form-label-group">

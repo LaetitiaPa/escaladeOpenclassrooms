@@ -2,7 +2,8 @@
 <meta charset="utf-8">
  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" >
    <div class="container">
-     <a class="navbar-brand" href="/home">Les Amis de l'Escalade</a>
+     <a class="navbar-brand" th:if="${#request.userPrincipal}" href="/home" >Les Amis de l'Escalade</a>
+     <a class="navbar-brand" th:if="${#request.userPrincipal} == null" href="/" >Les Amis de l'Escalade</a>
      <ul class="navbar-nav ml-left">
          <li class="nav-item active">
            <a class="nav-link" th:href="@{/spots}">Spots

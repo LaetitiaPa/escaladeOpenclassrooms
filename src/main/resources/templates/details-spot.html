@@ -32,12 +32,12 @@
 		Editer le spot
        </a>
 	<hr>
-	
+
     <div class="row ">
 	 <div class="col-md-4">
 		<h3 th:text= "${spotName}" ></h3>
-		<img src="../static/images/spot-1.jpg" width="400"
-	     th:src="@{images/spot-1.jpg}"/>
+		<img src="../static/images/ + ${spotImage})" width="400"
+	     th:src="@{'images/'+ ${spotImage}}"/>
       </div>
     
 	  <div class="col-md-4 ml-auto">

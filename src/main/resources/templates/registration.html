@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"xmlns:th="http://www.thymeleaf.org">
 <head>
 	<title>Créer un compte</title>
 <!-- Required meta tags -->
@@ -25,7 +24,7 @@
 <body class="bg-light">
 <div class="container">
  <div class="row justify-content-center">
- <div class="col-8">
+ <div class="col-6">
  	<h2>Créer un compte</h2>
 	<form autocomplete="off" action="#" th:action="@{/registration}" th:object="${user}" method="post" class="form-horizontal"role="form">
 	<div class="form-group">
@@ -59,13 +58,15 @@
 		<button type="submit" class="btn btn-primary btn-block">S'enregistrer</button>
 	</div>
   </div>
-  <span th:utext="${successMessage}"></span>	
 </form>
 <div class="col-sm-9">
 	<form th:action="@{/login}" method="get">
 		<button class="btn btn-md btn-warning btn-block" type="Submit">Se connecter</button>
 	</form>
 	</div>
+	<div class="col-sm-9">
+		<span style="color:green" th:text="${successMessage}"></span>
+   </div>
 </div>
 </div>
 <hr>
