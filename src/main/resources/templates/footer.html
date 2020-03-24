@@ -1,8 +1,6 @@
   <!-- Footer -->
  <meta charset="utf-8">
  <footer class="footer navbar-fixed-bottom bg-light">
-   <div class="container">
-     <div class="row">
        <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
          <ul class="list-inline mb-2">
            <li class="list-inline-item">
@@ -42,6 +40,13 @@
            </li>
          </ul>
        </div>
-     </div>
-   </div>
+      <!-- Bootstrap core JavaScript -->
+	  <script src="vendor/jquery/jquery.min.js"></script>
+	  	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	 	<script th:inline="javascript">
+		<script th:inline="javascript">
+	 	$(function () {
+		  $('[data-toggle="tooltip"]').tooltip()
+		})
+	 </script>
  </footer>

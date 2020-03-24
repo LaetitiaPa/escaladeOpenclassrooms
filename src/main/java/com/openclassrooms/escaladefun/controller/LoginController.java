@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.openclassrooms.escaladefun.entity.User;
+import com.openclassrooms.escaladefun.repository.SpotRepository;
 import com.openclassrooms.escaladefun.service.UserServiceImpl;
 
 @Controller
@@ -26,9 +27,13 @@ public class LoginController {
     @Autowired
     private UserServiceImpl     userServiceImpl;
 
+    @Autowired
+    private SpotRepository      spotRepository;
+
     @RequestMapping( value = "/", method = RequestMethod.GET )
-    public ModelAndView accueil() {
+    public ModelAndView accueil( Model model ) {
         ModelAndView modelAndView = new ModelAndView();
+        model.addAttribute( "lastSpots", spotRepository.findFirst3SpotByOrderByIdDesc() );
 
         modelAndView.setViewName( "accueil" );
         return modelAndView;

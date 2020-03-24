@@ -50,6 +50,8 @@ public class Spot {
     @Lob
     private String        remarks;
 
+    private String        image;
+
     private Boolean       tag = false;
 
     @OneToMany( mappedBy = "spot", cascade = CascadeType.REMOVE )
@@ -171,7 +173,7 @@ public class Spot {
             @NotBlank( message = "Merci de renseigner un type d'escalade" ) String climbingType,
             @NotBlank( message = "Merci de renseigner un type de prise" ) String holdsType,
             @NotBlank( message = "Merci de renseigner la praticabilité" ) String tracksPract, String remarks,
-            Boolean tag, List<Comment> comments, User user ) {
+            String image, Boolean tag, List<Comment> comments, User user ) {
         super();
         this.name = name;
         this.trackNumber = trackNumber;
@@ -181,6 +183,7 @@ public class Spot {
         this.holdsType = holdsType;
         this.tracksPract = tracksPract;
         this.remarks = remarks;
+        this.image = image;
         this.tag = tag;
         this.comments = comments;
         this.user = user;
@@ -188,6 +191,14 @@ public class Spot {
 
     public Spot() {
         // TODO Auto-generated constructor stub
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage( String image ) {
+        this.image = image;
     }
 
 }

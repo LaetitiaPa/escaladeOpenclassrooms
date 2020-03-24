@@ -19,7 +19,13 @@ public interface SpotRepository extends JpaRepository<Spot, Long> {
             + "l.spot = s.id" )
     List<SpotByRegion> getSpots();
 
+    @Query( "SELECT NEW com.openclassrooms.escaladefun.controller.SpotByRegion( s.name, l.region, s.tag, s.id ) FROM Spot  s JOIN Localisation  l ON "
+            + "l.spot = s.id WHERE l.region=:region" )
+    List<SpotByRegion> findSpotsByRegion( String region );
+
     Spot findByName( String name );
+
+    List<Spot> findFirst3SpotByOrderByIdDesc();
 
     /* Spot findById( Long id ); */
 

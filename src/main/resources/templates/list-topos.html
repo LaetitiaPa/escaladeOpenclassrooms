@@ -1,24 +1,24 @@
 <!DOCTYPE HTML>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-	<head>
-	  <!-- Required meta tags -->
-	   <meta charset="utf-8">
-	   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	   <!-- Bootstrap core CSS -->
-	   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	
-	  <!-- Custom fonts for this template -->
-	   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
-	   <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" type="text/css">
-	   <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+<head>
+  <!-- Required meta tags -->
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   <!-- Bootstrap core CSS -->
+   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-	
-	   <!-- Bootstrap CSS -->
-	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
-		<title>Les Amis de l'Escalade - Topos</title>
-	</head>
-	<body>
+  <!-- Custom fonts for this template -->
+   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+   <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" type="text/css">
+   <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+
+   <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+	<title>Les Amis de l'Escalade - Topos</title>
+</head>
+<body class="bg-light">
 	<div th:include="navbar.html"></div>
 		<div class="container ">
 		<h3 >Topos disponibles</h3>
@@ -28,14 +28,14 @@
 			Ajouter un topo
 		</a>
 		<table class="table table-bordered table-striped">
-			<!-- <thead class="thead-dark">
+			<thead class="thead-dark">
 				<tr>
 					<th>Titre</th>
 					<th>Région</th>
 					<th>Description</th>
 					<th >Action</th>
 				</tr>
-			</thead> -->
+			</thead>
 			<tbody>
 			<tr th:each="topo : ${AllTopos}"
       		 th:if="${topo.availability} and ${topo.user.id} != ${currentUser.id}">
@@ -52,8 +52,9 @@
 		    </tbody>
 		  </table>
          </div>
-         <div th:include="footer.html"></div>  
-      </body>
+         <hr>
+        <div th:include="footer.html"></div>  
+   </body>
 </html>
 
 

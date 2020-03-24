@@ -10,7 +10,7 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 	<!-- Bootstrap core CSS -->
 	<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	
+	<title>Espace Membre</title>
 	 <!-- Custom fonts for this template -->
 	<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
 	<link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" type="text/css">
@@ -18,35 +18,35 @@
 	
 	<!-- Custom styles for this template -->
 	<link href="css/landing-page.min.css" rel="stylesheet">
-	
-	<title>Espace Membre</title>
+
 
 </head>
-<body>
+<body class="bg-light">
 	<div th:include="navbar.html"> </div>
-	<div class="container">
+		<div class="container">
+		<hr>
+		<hr>
+		<hr>
+		<h3>Tous nos sites d'escalades</h3>
+		<hr>
 	
-	<h3>Tous nos sites d'escalades</h3>
-	
-	<hr>
-	
-	<div th:if="${#request.userPrincipal}">	
-		<a th:href="@{/ajouter-un-spot}"class="btn btn-primary btn-sm mb-3">Ajouter un spot</a>
-	</div>
-	
-	<table class="table table-bordered table-striped">
-	<tbody>
-		<tr th:each="spot : ${AllSpots}">
-			<td th:text="${spot.name}">
-			<td th:text="${spot.region}">
-			<td>
-				<a th:href="@{/afficher-un-spot(name=${spot.name})}"class="btn btn-info btn-sm">Afficher</a>
-	  	    </td>
-	</tbody>		
+		<div th:if="${#request.userPrincipal}">	
+			<a th:href="@{/ajouter-un-spot}"class="btn btn-primary btn-sm mb-3">Ajouter un spot</a>
+		</div>
+		<table class="table table-bordered table-striped">
+	 	<tbody>
+			<tr th:each="spot : ${AllSpots}">
+				<td th:text="${spot.name}">
+				<td th:text="${spot.region}">
+				<td>
+					<a th:href="@{/afficher-un-spot(name=${spot.name})}"class="btn btn-info btn-sm">Afficher</a>
+		  	    </td>
+		    </tr>
+	   </tbody>		
 	</table>
   </div>
   <!-- Footer -->
-  <div th:include="footer.html"></div>
+<div th:include="footer.html"></div>
 </body>
 </html>
 
